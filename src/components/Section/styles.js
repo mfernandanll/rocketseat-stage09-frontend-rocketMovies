@@ -8,7 +8,9 @@ export const Container = styled.section`
 
   .header {
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
+
+    margin-bottom: 40px;
   }
 
 `

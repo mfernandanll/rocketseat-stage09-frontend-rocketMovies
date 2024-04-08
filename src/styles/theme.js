@@ -10,5 +10,6 @@ export default {
     GRAY_700: "#1C1B1E",
 
     ROSE: "#FF859B",
+    ROSE_700: "#282124"
   }
 }

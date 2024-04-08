@@ -10,3 +10,18 @@ export const Container = styled.div`
   "header"
   "content";
 `
+
+export const Content = styled.div`
+  grid-area: content;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar{
+    background-color: ${({theme}) => theme.COLORS.GRAY_700};
+  }
+
+  &::-webkit-scrollbar-thumb{
+    background: ${({theme}) => theme.COLORS.ROSE};;
+    border-radius: 8px;
+    width: 8px;
+  }
+`
