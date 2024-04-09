@@ -1,14 +1,22 @@
+import { FiPlus } from "react-icons/fi";
 import { Card } from "../../components/Card";
 import { Header } from "../../components/Header";
 import { Section } from "../../components/Section";
-import { Container, Content } from "./styles";
+import { Button, Container, Content, Title } from "./styles";
 
 export function Home() {
   return (
     <Container>
       <Header />
-      <Content>
-        <Section title="Meus filmes" buttonExist>
+      <Title>
+        <h2>Meus Filmes</h2>
+        <Button>
+          <FiPlus /> Adicionar filme
+        </Button>
+      </Title>
+
+      {/* <Content> */}
+        <Section>
           <Card
             data={{
               title: "Interestellar",
@@ -21,7 +29,7 @@ export function Home() {
               ],
             }}
           />
-           <Card
+          <Card
             data={{
               title: "Interestellar",
               description:
@@ -33,7 +41,7 @@ export function Home() {
               ],
             }}
           />
-           <Card
+          <Card
             data={{
               title: "Interestellar",
               description:
@@ -45,19 +53,7 @@ export function Home() {
               ],
             }}
           />
-           <Card
-            data={{
-              title: "Interestellar",
-              description:
-                "Pragas nas colheitas fizeram a civilização humana regredir para uma sociedade agrária em futuro de data desconhecida. Cooper, ex-piloto da NASA, tem uma fazenda com sua família. Murphy, a filha de dez anos de Cooper, acredita que seu quarto está assombrado por um fantasma que tenta se comunicar com ela.",
-              tags: [
-                { id: "1", name: "Ficção Científica" },
-                { id: "2", name: "Drama" },
-                { id: "3", name: "Família" },
-              ],
-            }}
-          />
-           <Card
+          <Card
             data={{
               title: "Interestellar",
               description:
@@ -70,7 +66,7 @@ export function Home() {
             }}
           />
         </Section>
-      </Content>
+      {/* </Content> */}
     </Container>
   );
 }

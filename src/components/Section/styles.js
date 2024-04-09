@@ -1,30 +1,19 @@
 import styled from 'styled-components';
 
 export const Container = styled.section`
-  margin: 50px 123px;
-  > h2 {
-    font-size: 32px;
+  grid-area: section;
+  overflow-y: auto;
+  margin: 0 123px;
+
+  &::-webkit-scrollbar{
+    background-color: ${({ theme }) => theme.COLORS.GRAY_700};
   }
 
-  .header {
-    display: flex;
-    justify-content: space-between;
-
-    margin-bottom: 40px;
+  &::-webkit-scrollbar-thumb{
+    background: ${({ theme }) => theme.COLORS.ROSE};;
+    border-radius: 8px;
+    width: 8px;
   }
 
 `
 
-export const Button = styled.button`
-  width: 207px;
-  height: 48px;
-
-  background-color: ${({theme}) => theme.COLORS.ROSE};
-  color: ${({theme}) => theme.COLORS.GRAY_700};
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 8px;
-`

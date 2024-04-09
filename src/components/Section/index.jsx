@@ -1,15 +1,9 @@
-import { Button, Container } from "./styles";
-import { FiPlus } from "react-icons/fi";
+import { Container } from "./styles";
 
-
-export function Section({ title, children, buttonExist = false }) {
+export function Section({ children }) {
   return (
     <Container>
-      <div className="header">
-        <h2>{title}</h2>
-        {buttonExist && <Button><FiPlus /> Adicionar filme</Button>}
-      </div>
-        {children}
+      {children}
     </Container>
   );
 }

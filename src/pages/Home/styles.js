@@ -5,23 +5,38 @@ export const Container = styled.div`
   height: 100vh;
 
   display: grid;
-  grid-template-rows: 116px auto;
+  grid-template-rows: 116px 132px auto;
   grid-template-areas: 
   "header"
-  "content";
+  "title"
+  "section";
 `
 
-export const Content = styled.div`
-  grid-area: content;
-  overflow-y: auto;
+export const Title = styled.div`
+  grid-area: title;
 
-  &::-webkit-scrollbar{
-    background-color: ${({theme}) => theme.COLORS.GRAY_700};
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-  &::-webkit-scrollbar-thumb{
-    background: ${({theme}) => theme.COLORS.ROSE};;
-    border-radius: 8px;
-    width: 8px;
+  padding: 0 123px;
+
+
+  > h2 {
+    font-size: 32px;
   }
+`
+
+export const Button = styled.button`
+  width: 207px;
+  height: 48px;
+
+  background-color: ${({ theme }) => theme.COLORS.ROSE};
+  color: ${({ theme }) => theme.COLORS.GRAY_700};
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
 `
