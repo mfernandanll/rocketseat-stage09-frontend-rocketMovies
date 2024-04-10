@@ -5,13 +5,14 @@ import { Section } from "../../components/Section";
 import { Container, Description, Row, Title } from "./styles";
 import { Tag } from "../../components/Tag";
 import { CiClock2 } from "react-icons/ci";
+import { FaArrowLeft } from "react-icons/fa6";
 
 export function MoviePreview() {
   return (
     <Container>
       <Header />
       <Title>
-        <ButtonText title="Voltar" />
+        <ButtonText title="Voltar" icon={FaArrowLeft}/>
       </Title>
       <Section>
         <Row>

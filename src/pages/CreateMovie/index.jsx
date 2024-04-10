@@ -1,3 +1,4 @@
+import { FaArrowLeft } from "react-icons/fa6";
 import { Button } from "../../components/Button";
 import { ButtonText } from "../../components/ButtonText";
 import { Header } from "../../components/Header";
@@ -12,7 +13,7 @@ export function CreateMovie() {
     <Container>
       <Header/>
       <Title>
-        <ButtonText title="Voltar"/>
+        <ButtonText title="Voltar" icon={FaArrowLeft}/>
       </Title>
       <Section>
         <form>

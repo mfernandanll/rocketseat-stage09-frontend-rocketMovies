@@ -9,12 +9,13 @@ import { Home } from './pages/Home'
 import { CreateMovie } from './pages/CreateMovie'
 import { MoviePreview } from './pages/MoviePreview'
 import { Profile } from './pages/Profile'
+import { SignIn } from './pages/SignIn'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <Profile />
+      <SignIn />
     </ThemeProvider>
   </React.StrictMode>,
 )
