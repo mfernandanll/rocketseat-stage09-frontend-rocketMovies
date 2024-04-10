@@ -1,4 +1,5 @@
-import { Brand, Container, Profile, Search } from "./styles";
+import { InputField } from "../InputField";
+import { Brand, Container, Profile } from "./styles";
 
 export function Header() {
   return (
@@ -6,7 +7,7 @@ export function Header() {
       <Brand>
         <h1>RocketMovies</h1>
       </Brand>
-      <Search placeholder="Pesquisar pelo título"></Search>
+      <InputField placeholder="Pesquisar pelo título" type="text"/>
       <Profile>
         <div>
           <strong>Rodrigo Gonçalves</strong>

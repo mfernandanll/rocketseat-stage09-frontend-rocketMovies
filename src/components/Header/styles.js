@@ -22,25 +22,6 @@ export const Brand = styled.div`
   font-size: 16px;
   font-weight: 700;
 `
-
-export const Search = styled.input`
-  width: 100%;
-
-  padding: 19px 24px;
-
-  background-color: ${({ theme }) => theme.COLORS.GRAY_600};
-  color: ${({ theme }) => theme.COLORS.GRAY_100};
-
-  font-size: 14px;
-  
-  border-radius: 10px;
-  border: none;
-
-  &:placeholder {
-      color: ${({ theme }) => theme.COLORS.GRAY_100} 
-  }
-`
-
 export const Profile = styled.a`
   display: flex;
   align-items: center;
