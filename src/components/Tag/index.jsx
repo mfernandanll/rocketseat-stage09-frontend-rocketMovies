@@ -1,8 +1,8 @@
 import { Container } from './styles'
 
-export function Tag({ title, ...rest }) {
+export function Tag({ title, secondaryColor = false, ...rest }) {
   return (
-    <Container {...rest}>
+    <Container $secondaryColor={secondaryColor} {...rest}>
       {title}
     </Container>
   )
