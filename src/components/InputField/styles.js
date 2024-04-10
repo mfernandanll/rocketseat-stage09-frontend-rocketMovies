@@ -2,6 +2,14 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   width: 100%;
+  display: flex;
+  align-items: center;
+
+  background-color: ${({ theme }) => theme.COLORS.GRAY_600};
+  color: ${({ theme }) => theme.COLORS.GRAY_100};
+
+  margin-bottom: 8px;
+  border-radius: 10px;
 
   > label {
     width: 1px;
@@ -18,10 +26,11 @@ export const Container = styled.div`
 
   > input{
     width: 100%;
+    height: 56px;
     padding: 19px 24px;
 
     background-color: ${({ theme }) => theme.COLORS.GRAY_600};
-    color: ${({ theme }) => theme.COLORS.GRAY_100};
+    color: ${({ theme }) => theme.COLORS.WHITE};
 
     font-size: 14px;
 
@@ -31,6 +40,10 @@ export const Container = styled.div`
     &:placeholder {
       color: ${({ theme }) => theme.COLORS.GRAY_100} 
     }
+  }
+
+  > svg {
+    margin-left: 16px;
   }
  
 `
