@@ -10,7 +10,7 @@ export function Home() {
       <Header />
       <Title>
         <h2>Meus Filmes</h2>
-        <Button>
+        <Button to="/createMovie">
           <FiPlus /> Adicionar filme
         </Button>
       </Title>

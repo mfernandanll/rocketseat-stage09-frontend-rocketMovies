@@ -1,15 +1,15 @@
 import { FiCamera, FiLock, FiMail, FiUser } from "react-icons/fi";
-import { ButtonText } from "../../components/ButtonText";
 import { Avatar, Container, Form, Head } from "./styles";
 import { InputField } from "../../components/InputField";
 import { Button } from "../../components/Button";
 import { FaArrowLeft } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 export function Profile() {
   return (
     <Container>
       <Head>
-        <ButtonText title="Voltar" icon={FaArrowLeft}/>
+        <Link to="/"> <FaArrowLeft/>  Voltar</Link>
       </Head>
 
       <Form>

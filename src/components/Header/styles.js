@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 export const Container = styled.header`
   grid-area: header;
@@ -22,7 +23,7 @@ export const Brand = styled.div`
   font-size: 16px;
   font-weight: 700;
 `
-export const Profile = styled.a`
+export const Profile = styled(Link)`
   display: flex;
   align-items: center;
 

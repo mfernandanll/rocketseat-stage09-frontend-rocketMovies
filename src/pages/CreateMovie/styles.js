@@ -23,6 +23,10 @@ export const Title = styled.div`
 
   padding: 0 123px;
 
+  > a {
+    color: ${({ theme }) => theme.COLORS.ROSE};
+  }
+
 `
 
 export const Fieldset = styled.fieldset`

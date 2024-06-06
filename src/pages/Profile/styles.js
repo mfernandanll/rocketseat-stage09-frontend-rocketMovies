@@ -30,6 +30,9 @@ export const Head = styled.header`
   border-bottom-style: solid;
   border-bottom-color: ${({ theme }) => theme.COLORS.ROSE_700};
 
+  > a {
+    color: ${({ theme }) => theme.COLORS.ROSE};
+  }
 `
 
 export const Form = styled.form`

@@ -1,18 +1,20 @@
 import { IoIosStar } from "react-icons/io";
-import { ButtonText } from "../../components/ButtonText";
 import { Header } from "../../components/Header";
 import { Section } from "../../components/Section";
 import { Container, Description, Row, Title } from "./styles";
 import { Tag } from "../../components/Tag";
 import { CiClock2 } from "react-icons/ci";
 import { FaArrowLeft } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 export function MoviePreview() {
   return (
     <Container>
       <Header />
       <Title>
-        <ButtonText title="Voltar" icon={FaArrowLeft}/>
+        <Link to="/">
+          <FaArrowLeft /> Voltar
+        </Link>
       </Title>
       <Section>
         <Row>

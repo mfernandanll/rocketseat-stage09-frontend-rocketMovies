@@ -1,19 +1,19 @@
 import { FaArrowLeft } from "react-icons/fa6";
 import { Button } from "../../components/Button";
-import { ButtonText } from "../../components/ButtonText";
 import { Header } from "../../components/Header";
 import { InputField } from "../../components/InputField";
 import { NoteItem } from "../../components/NoteItem";
 import { Section } from "../../components/Section";
 import { TextArea } from "../../components/TextArea";
 import { Container, Fieldset, Marks, Title } from "./styles";
+import { Link } from "react-router-dom";
 
 export function CreateMovie() {
   return (
     <Container>
       <Header/>
       <Title>
-        <ButtonText title="Voltar" icon={FaArrowLeft}/>
+        <Link to="/"> <FaArrowLeft/> Voltar</Link>
       </Title>
       <Section>
         <form>
