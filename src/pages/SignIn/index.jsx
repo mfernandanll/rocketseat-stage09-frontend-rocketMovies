@@ -4,7 +4,13 @@ import { Button } from "../../components/Button";
 import { Background, Container, Form } from "./styles";
 import { Link } from "react-router-dom";
 
+import { useAuth } from '../../hooks/auth';
+
 export function SignIn() {
+
+  const data = useAuth();
+  console.log(data);
+
   return (
     <Container>
       <Form>
