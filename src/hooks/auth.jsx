@@ -1,6 +1,7 @@
 import {
   createContext,
   useContext,
+  useEffect,
   useState
 } from 'react';
 
@@ -15,7 +16,10 @@ function AuthProvider({ children }) {
     try {
       const response = await api.post("sessions", { email, password });
       const { token, user } = response.data;
-      console.log(response)
+      
+      localStorage.setItem("@rocketnotes:user", JSON.stringify(user));
+      localStorage.setItem("@rocketnotes:token", token);
+      
       api.defaults.headers.authorization = `Bearer ${token}`;
 
       setData({ token, user });
@@ -28,6 +32,20 @@ function AuthProvider({ children }) {
       }
     }
   }
+
+  useEffect(() => {
+    const token = localStorage.getItem("@rocketnotes:token");
+    const user = localStorage.getItem("@rocketnotes:user");
+
+    if (token && user) {
+      api.defaults.headers.authorization = `Bearer ${token}`;
+
+      setData({
+        token,
+        user: JSON.parse(user)
+      });
+    }
+  }, []);
 
 
   return (
