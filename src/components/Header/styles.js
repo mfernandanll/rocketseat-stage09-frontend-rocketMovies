@@ -16,6 +16,7 @@ export const Container = styled.header`
   border-bottom-color: ${({ theme }) => theme.COLORS.GRAY_400};
 
   padding: 30px 123px;
+  position: relative;
 `
 
 export const Brand = styled.div`
@@ -28,21 +29,15 @@ export const Profile = styled(Link)`
   align-items: center;
 
   > div {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-
     margin-right: 9px;
+    font-size: 14px;
+    line-height: 18px;
+
+    height: 4px;
 
     strong {
-      font-size: 14px;
       color: ${({ theme }) => theme.COLORS.WHITE};
       white-space: nowrap;
-    }
-
-    span {
-      font-size: 14px;
-      color: ${({ theme }) => theme.COLORS.GRAY_100};
     }
   }
 
@@ -52,3 +47,17 @@ export const Profile = styled(Link)`
     border-radius: 50%;
   }
 `
+
+export const Logout = styled.button`
+  border: none;
+  background: none;
+
+  color: ${({ theme }) => theme.COLORS.GRAY_100};
+
+  font-size: 14px;
+  line-height: 18px;
+
+  position: absolute;
+  bottom: 26px;
+  right: 195px;
+`;
