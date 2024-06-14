@@ -15,7 +15,7 @@ export function Header() {
       
       <Profile to="/profile">
         <div>
-          <strong>Rodrigo Gonçalves</strong>
+          <strong>{user.name}</strong>
         </div>
 
         <img src="https://github.com/diego3g.png" alt="Foto do usuário" />

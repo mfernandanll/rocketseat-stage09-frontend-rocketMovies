@@ -10,10 +10,21 @@ import { useAuth } from "../../hooks/auth";
 export function Profile() {
   const { user, updatedProfile } = useAuth();
 
-    const [name, setName] = useState(user.name);
-    const [email, setEmail] = useState(user.email);
-    const [passwordOld, setPasswordOld] = useState("");
-    const [passwordNew, setPasswordNew] = useState("");
+  const [name, setName] = useState(user.name);
+  const [email, setEmail] = useState(user.email);
+  const [passwordOld, setPasswordOld] = useState("");
+  const [passwordNew, setPasswordNew] = useState("");
+
+  async function handleUpdate() {
+    const user = {
+      name,
+      email,
+      password: passwordNew,
+      old_password: passwordOld
+    };
+
+    await updatedProfile({ user });
+  }
 
   return (
     <Container>
@@ -35,6 +46,7 @@ export function Profile() {
           placeholder="Nome" 
           type="text" 
           icon={FiUser} 
+          value={name}
           onChange={e => setName(e.target.value)}
         />
 
@@ -42,6 +54,7 @@ export function Profile() {
           placeholder="E-mail" 
           type="text" 
           icon={FiMail} 
+          value={email}
           onChange={e => setEmail(e.target.value)}
         />
 
@@ -59,7 +72,7 @@ export function Profile() {
           onChange={e => setPasswordNew(e.target.value)}
         />
 
-        <Button title="Salvar" />
+        <Button title="Salvar"  onClick={handleUpdate}/>
       </Form>
     </Container>
   );
