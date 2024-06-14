@@ -4,8 +4,17 @@ import { InputField } from "../../components/InputField";
 import { Button } from "../../components/Button";
 import { FaArrowLeft } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useAuth } from "../../hooks/auth";
 
 export function Profile() {
+  const { user, updatedProfile } = useAuth();
+
+    const [name, setName] = useState(user.name);
+    const [email, setEmail] = useState(user.email);
+    const [passwordOld, setPasswordOld] = useState("");
+    const [passwordNew, setPasswordNew] = useState("");
+
   return (
     <Container>
       <Head>
@@ -22,13 +31,33 @@ export function Profile() {
           </label>
         </Avatar>
 
-        <InputField placeholder="Nome" type="text" icon={FiUser} />
+        <InputField 
+          placeholder="Nome" 
+          type="text" 
+          icon={FiUser} 
+          onChange={e => setName(e.target.value)}
+        />
 
-        <InputField placeholder="E-mail" type="text" icon={FiMail} />
+        <InputField 
+          placeholder="E-mail" 
+          type="text" 
+          icon={FiMail} 
+          onChange={e => setEmail(e.target.value)}
+        />
 
-        <InputField placeholder="Senha atual" type="password" icon={FiLock} />
+        <InputField 
+          placeholder="Senha atual" 
+          type="password" 
+          icon={FiLock} 
+          onChange={e => setPasswordOld(e.target.value)}
+        />
 
-        <InputField placeholder="Nova atual" type="password" icon={FiLock} />
+        <InputField 
+          placeholder="Nova atual" 
+          type="password" 
+          icon={FiLock} 
+          onChange={e => setPasswordNew(e.target.value)}
+        />
 
         <Button title="Salvar" />
       </Form>
