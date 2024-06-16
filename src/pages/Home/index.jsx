@@ -9,7 +9,10 @@ import { api } from "../../services/api";
 export function Home() {
   const [notes, setNotes] = useState([]);
   const [tags, setTags] = useState([]);
-  const [ search, setSearch] = useState("");
+  const [tagSelected, setTagSelected] = useState([]);
+  const [search, setSearch] = useState("");
+
+  const tagsNames = tags.map(tag => tag.name)
 
   useEffect(() => {
     async function fetchTags() {
@@ -19,15 +22,20 @@ export function Home() {
 
     fetchTags();
   }, []);
-
+  
   useEffect(() => {
     async function fetchNotes() {
-      const response = await api.get(`/movieNotes?title=${search}`);
+      if(tagsNames.includes(search)) {
+        setTagSelected(search)
+      } else {
+        setTagSelected("")
+      }
+      const response = await api.get(`/movieNotes?title=${tagSelected ? "" : search}&tags=${tagSelected}`);
       setNotes(response.data);
     }
 
     fetchNotes();
-  }, [search]);
+  }, [search, tagSelected]);
 
   const sendSearch = (searchData) => {
     setSearch(searchData)
