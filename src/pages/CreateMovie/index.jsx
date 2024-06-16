@@ -6,12 +6,19 @@ import { NoteItem } from "../../components/NoteItem";
 import { Section } from "../../components/Section";
 import { TextArea } from "../../components/TextArea";
 import { Container, Fieldset, Marks, Title } from "./styles";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { api } from "../../services/api";
 
 export function CreateMovie() {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [rating, setRating] = useState(0);
+
   const [tags, setTags] = useState([]);
   const [newTag, setNewTag] = useState("");
+
+  const navigate = useNavigate();
 
   function handleAddTag() {
     setTags(prevState => [...prevState, newTag]);
@@ -20,6 +27,18 @@ export function CreateMovie() {
 
   function handleRemoveTag(deleted) {
     setTags(prevState => prevState.filter(tag => tag !== deleted));
+  }
+
+  async function handleNewMovieNote() {
+    await api.post("/movieNotes", {
+      title,
+      description,
+      tags,
+      rating
+    });
+
+    alert("Nota criada com sucesso!");
+    navigate("/");
   }
 
   return (
@@ -34,11 +53,26 @@ export function CreateMovie() {
             <legend>Novo Filme</legend>
 
             <div className="col-2">
-              <InputField type="text" inputTitle="title" title="Título" placeholder="Título"/>
-              <InputField type="text" inputTitle="note" title="Nota" placeholder="Sua nota (de 0 a 5)"/>
+              <InputField 
+                type="text" 
+                inputTitle="title" 
+                title="Título" 
+                placeholder="Título"
+                onChange={e => setTitle(e.target.value)}
+              />
+              <InputField 
+                type="text" 
+                inputTitle="note" 
+                title="Nota" 
+                placeholder="Sua nota (de 0 a 5)"
+                onChange={e => setRating(e.target.value)}
+              />
             </div>
 
-            <TextArea placeholder="Observações" />
+            <TextArea 
+              placeholder="Observações" 
+              onChange={e => setDescription(e.target.value)}
+            />
 
 
             <Marks>
@@ -69,7 +103,10 @@ export function CreateMovie() {
 
             <div className="col-2">
               <Button title="Excluir filme" iSactive={false}/>
-              <Button title="Salvar alterações"/>
+              <Button 
+                title="Salvar alterações"
+                onClick={handleNewMovieNote}
+              />
             </div>
           </Fieldset>
         </form>
