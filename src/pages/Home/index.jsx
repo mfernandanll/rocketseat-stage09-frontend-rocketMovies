@@ -5,14 +5,21 @@ import { Section } from "../../components/Section";
 import { Button, Container, Title } from "./styles";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
+import { useNavigate } from "react-router-dom";
 
 export function Home() {
   const [notes, setNotes] = useState([]);
   const [tags, setTags] = useState([]);
   const [tagSelected, setTagSelected] = useState([]);
   const [search, setSearch] = useState("");
+  
+  const navigate = useNavigate();
 
   const tagsNames = tags.map(tag => tag.name)
+
+  function handleMoviePreview(id) {
+    navigate(`/moviePreview/${id}`);
+  }
 
   useEffect(() => {
     async function fetchTags() {
@@ -57,6 +64,7 @@ export function Home() {
             <Card
               key={String(note.id)}
               data={note}
+              onClick={() => handleMoviePreview(note.id)}
             />
           ))
         }

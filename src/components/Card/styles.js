@@ -27,4 +27,8 @@ export const Container = styled.div`
     font-size: 16px;
     margin-bottom: 15px;
   }
+
+  &:hover{
+    background-color: ${({theme}) => theme.COLORS.ROSE_600};
+  }
 `
