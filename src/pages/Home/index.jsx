@@ -7,7 +7,9 @@ import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 
 export function Home() {
+  const [notes, setNotes] = useState([]);
   const [tags, setTags] = useState([]);
+  const [ search, setSearch] = useState("");
 
   useEffect(() => {
     async function fetchTags() {
@@ -18,9 +20,22 @@ export function Home() {
     fetchTags();
   }, []);
 
+  useEffect(() => {
+    async function fetchNotes() {
+      const response = await api.get(`/movieNotes?title=${search}`);
+      setNotes(response.data);
+    }
+
+    fetchNotes();
+  }, [search]);
+
+  const sendSearch = (searchData) => {
+    setSearch(searchData)
+  }
+
   return (
     <Container>
-      <Header />
+      <Header sendSearch={sendSearch}/>
       <Title>
         <h2>Meus Filmes</h2>
         <Button to="/createMovie">
@@ -29,26 +44,14 @@ export function Home() {
       </Title>
 
       <Section>
-        <Card
-          data={{
-            title: "Interestellar",
-            description:
-              "Pragas nas colheitas fizeram a civilização humana regredir para uma sociedade agrária em futuro de data desconhecida. Cooper, ex-piloto da NASA, tem uma fazenda com sua família. Murphy, a filha de dez anos de Cooper, acredita que seu quarto está assombrado por um fantasma que tenta se comunicar com ela.",
-            tags
-          }}
-        />
-        <Card
-          data={{
-            title: "Interestellar",
-            description:
-              "Pragas nas colheitas fizeram a civilização humana regredir para uma sociedade agrária em futuro de data desconhecida. Cooper, ex-piloto da NASA, tem uma fazenda com sua família. Murphy, a filha de dez anos de Cooper, acredita que seu quarto está assombrado por um fantasma que tenta se comunicar com ela.",
-            tags: [
-              { id: "1", name: "Ficção Científica" },
-              { id: "2", name: "Drama" },
-              { id: "3", name: "Família" },
-            ],
-          }}
-        />
+        {
+          notes.map(note => (
+            <Card
+              key={String(note.id)}
+              data={note}
+            />
+          ))
+        }
       </Section>
     </Container>
   );

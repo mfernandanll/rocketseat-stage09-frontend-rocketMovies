@@ -6,8 +6,9 @@ import { api } from "../../services/api";
 
 import avatarPlaceholder from "../../assets/avatar_placeholder.svg";
 
-export function Header() {
+export function Header({sendSearch}) {
   const { signOut, user } = useAuth();
+
   const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder;
 
   return (
@@ -16,7 +17,11 @@ export function Header() {
         <h1>RocketMovies</h1>
       </Brand>
 
-      <InputField placeholder="Pesquisar pelo título" type="text"/>
+      <InputField 
+        placeholder="Pesquisar pelo título" 
+        type="text"
+        onChange={(e) => sendSearch(e.target.value)}
+      />
       
       <Profile to="/profile">
         <div>
