@@ -23,6 +23,14 @@ export function MoviePreview() {
 
   const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder;
 
+  async function handleRemove() {
+    const confirm = window.confirm("Deseja realmente remover a nota?");
+
+    if (confirm) {
+      await api.delete(`/movieNotes/${params.id}`);
+    }
+  }
+
   useEffect(() => {
     async function fetchNote() {
       const response = await api.get(`/movieNotes/${params.id}`);
@@ -38,6 +46,9 @@ export function MoviePreview() {
       <Title>
         <Link to="/">
           <FaArrowLeft /> Voltar
+        </Link>
+        <Link to="/" onClick={handleRemove}>
+          Excluir nota
         </Link>
       </Title>
       {data && (
