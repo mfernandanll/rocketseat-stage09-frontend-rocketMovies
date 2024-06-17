@@ -10,8 +10,4 @@ export const Container = styled.button`
   display: flex;
   align-items: center;
 
-  > svg {
-    margin-right: 8px;
-    font-size: 16px;
-  }
 `

@@ -1,11 +1,9 @@
 import { Container } from "./styles";
-// import { FaArrowLeft } from "react-icons/fa6";
 
-export function ButtonText({title, icon: Icon,}) {
+export function ButtonText({children, ...rest}) {
   return (
-    <Container type="button">
-      {Icon && <Icon size={20} />}
-      {title}
+    <Container type="button" {...rest}>
+      {children}
     </Container>
   )
 }

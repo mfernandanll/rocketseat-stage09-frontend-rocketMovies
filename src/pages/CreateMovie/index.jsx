@@ -1,12 +1,13 @@
 import { FaArrowLeft } from "react-icons/fa6";
 import { Button } from "../../components/Button";
+import { ButtonText } from "../../components/ButtonText";
 import { Header } from "../../components/Header";
 import { InputField } from "../../components/InputField";
 import { NoteItem } from "../../components/NoteItem";
 import { Section } from "../../components/Section";
 import { TextArea } from "../../components/TextArea";
 import { Container, Fieldset, Marks, Title } from "./styles";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { api } from "../../services/api";
 
@@ -23,6 +24,10 @@ export function CreateMovie() {
   function handleAddTag() {
     setTags(prevState => [...prevState, newTag]);
     setNewTag("");
+  }
+
+  function handleBack() {
+    navigate(-1);
   }
 
   function handleRemoveTag(deleted) {
@@ -67,7 +72,9 @@ export function CreateMovie() {
     <Container>
       <Header/>
       <Title>
-        <Link to="/"> <FaArrowLeft/> Voltar</Link>
+        <ButtonText onClick={handleBack}>
+          <FaArrowLeft/> Voltar
+        </ButtonText>
       </Title>
       <Section>
         <form>

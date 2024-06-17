@@ -8,13 +8,14 @@ import { Section } from "../../components/Section";
 import { Container, Description, Row, Title } from "./styles";
 import { Tag } from "../../components/Tag";
 import { CiClock2 } from "react-icons/ci";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoIosStar } from "react-icons/io";
 import { FaArrowLeft } from "react-icons/fa6";
 import { format } from 'date-fns';
 
 import avatarPlaceholder from "../../assets/avatar_placeholder.svg";
 import { ptBR } from "date-fns/locale";
+import { ButtonText } from "../../components/ButtonText";
 
 export function MoviePreview() {
   const [data, setData] = useState(null);
@@ -22,13 +23,20 @@ export function MoviePreview() {
   const params = useParams();
 
   const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder;
+  
+  const navigate = useNavigate();
 
   async function handleRemove() {
     const confirm = window.confirm("Deseja realmente remover a nota?");
 
     if (confirm) {
       await api.delete(`/movieNotes/${params.id}`);
+      navigate(-1);
     }
+  }
+
+  function handleBack() {
+    navigate(-1);
   }
 
   useEffect(() => {
@@ -44,12 +52,12 @@ export function MoviePreview() {
     <Container>
       <Header />
       <Title>
-        <Link to="/">
-          <FaArrowLeft /> Voltar
-        </Link>
-        <Link to="/" onClick={handleRemove}>
-          Excluir nota
-        </Link>
+        <ButtonText onClick={handleBack}>
+          <FaArrowLeft/> Voltar
+        </ButtonText>
+        <ButtonText onClick={handleRemove}>
+          Excluir filme
+        </ButtonText>
       </Title>
       {data && (
         <Section>
