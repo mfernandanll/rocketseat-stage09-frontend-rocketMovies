@@ -3,7 +3,7 @@ import { Avatar, Container, Form, Head } from "./styles";
 import { InputField } from "../../components/InputField";
 import { Button } from "../../components/Button";
 import { FaArrowLeft } from "react-icons/fa6";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useState } from "react";
 import { useAuth } from "../../hooks/auth";
@@ -29,14 +29,16 @@ export function Profile() {
   const navigate = useNavigate();
 
   async function handleUpdate() {
-    const user = {
+    const updated = {
       name,
       email,
       password: passwordNew,
       old_password: passwordOld
     };
 
-    await updatedProfile({ user, avatarFile });
+    const userUpdated = Object.assign(user, updated);
+
+    await updatedProfile({ user: userUpdated, avatarFile });
   }
 
   function handleChangeAvatar(event) {
