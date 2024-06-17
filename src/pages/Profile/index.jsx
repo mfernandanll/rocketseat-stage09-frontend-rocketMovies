@@ -3,7 +3,7 @@ import { Avatar, Container, Form, Head } from "./styles";
 import { InputField } from "../../components/InputField";
 import { Button } from "../../components/Button";
 import { FaArrowLeft } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useState } from "react";
 import { useAuth } from "../../hooks/auth";
@@ -11,6 +11,7 @@ import { useAuth } from "../../hooks/auth";
 import { api } from "../../services/api";
 
 import avatarPlaceholder from "../../assets/avatar_placeholder.svg";
+import { ButtonText } from "../../components/ButtonText";
 
 export function Profile() {
   const { user, updatedProfile } = useAuth();
@@ -25,6 +26,7 @@ export function Profile() {
   const [avatar, setAvatar] = useState(avatarUrl);
   const [avatarFile, setAvatarFile] = useState(null);
 
+  const navigate = useNavigate();
 
   async function handleUpdate() {
     const user = {
@@ -45,10 +47,16 @@ export function Profile() {
     setAvatar(imagePreview);
   }
 
+  function handleBack() {
+    navigate(-1);
+  }
+
   return (
     <Container>
       <Head>
-        <Link to="/"> <FaArrowLeft/>  Voltar</Link>
+        <ButtonText onClick={handleBack}>
+          <FaArrowLeft/> Voltar
+        </ButtonText>
       </Head>
 
       <Form>
