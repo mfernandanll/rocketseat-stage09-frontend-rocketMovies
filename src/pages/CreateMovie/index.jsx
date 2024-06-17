@@ -53,6 +53,16 @@ export function CreateMovie() {
     navigate("/");
   }
 
+  function handleDiscardMovie() {
+    const userConfirmation = confirm(
+      "Todas as alterações serão perdidas... Tem certeza que deseja descartar as alterações?"
+    );
+
+    if (userConfirmation) {
+      navigate(-1);
+    }
+  }
+
   return (
     <Container>
       <Header/>
@@ -114,7 +124,11 @@ export function CreateMovie() {
 
 
             <div className="col-2">
-              <Button title="Excluir filme" iSactive={false}/>
+              <Button 
+                title="Descartar alterações"
+                iSactive={false}
+                onClick={handleDiscardMovie}
+              />
               <Button 
                 title="Salvar alterações"
                 onClick={handleNewMovieNote}
