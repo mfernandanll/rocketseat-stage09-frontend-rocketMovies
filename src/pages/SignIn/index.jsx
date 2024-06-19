@@ -40,8 +40,10 @@ export function SignIn() {
         />
 
         <Button title="Entrar" onClick={handleSignIn} />
+
         <Link to="register" >Criar Conta</Link>
       </Form>
+      
       <Background/>
     </Container>
   )

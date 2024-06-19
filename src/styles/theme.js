@@ -2,6 +2,7 @@ export default {
   COLORS: {
     WHITE: "#F4EDE8",
     GRAY_100: "#948F99",
+    GRAY_150: "#CAC4CF",
     GRAY_200: "#999591",
     GRAY_300: "#666360",
     GRAY_400: "#3E3B47",

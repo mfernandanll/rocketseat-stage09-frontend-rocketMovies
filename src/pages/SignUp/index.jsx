@@ -44,31 +44,34 @@ export function SignUp() {
         <p>Aplicação para acompanhar tudo que assistir.</p>
         <h2>Crie sua conta</h2>
 
-        <InputField 
-          placeholder="Nome" 
-          type="text" 
-          icon={FiUser} 
-          onChange={e => setName(e.target.value)}
-        />
-        <InputField 
-          placeholder="E-mail" 
-          type="text" 
-          icon={FiMail} 
-          onChange={e => setEmail(e.target.value)}
-        />
-        <InputField 
-          placeholder="Senha" 
-          type="password" 
-          icon={FiLock} 
-          onChange={e => setPassword(e.target.value)}
+        <InputField
+          placeholder="Nome"
+          type="text"
+          icon={FiUser}
+          onChange={(e) => setName(e.target.value)}
         />
 
-        <Button title="Cadastrar" onClick={handleSignUp}/>
-        
+        <InputField
+          placeholder="E-mail"
+          type="text"
+          icon={FiMail}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+
+        <InputField
+          placeholder="Senha"
+          type="password"
+          icon={FiLock}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <Button title="Cadastrar" onClick={handleSignUp} />
+
         <Link to="/">
           <FaArrowLeft /> Voltar para o login
         </Link>
       </Form>
+      
       <Background />
     </Container>
   );

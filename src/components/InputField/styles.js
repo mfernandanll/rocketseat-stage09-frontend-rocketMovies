@@ -8,7 +8,6 @@ export const Container = styled.div`
   background-color: ${({ theme }) => theme.COLORS.GRAY_600};
   color: ${({ theme }) => theme.COLORS.GRAY_100};
 
-  margin-bottom: 8px;
   border-radius: 10px;
 
   > label {
@@ -27,12 +26,12 @@ export const Container = styled.div`
   > input{
     width: 100%;
     height: 56px;
-    padding: 19px 24px;
+    padding: 1rem;
 
     background-color: ${({ theme }) => theme.COLORS.GRAY_600};
-    color: ${({ theme }) => theme.COLORS.WHITE};
+    color: ${({ theme }) => theme.COLORS.GRAY_100};
 
-    font-size: 14px;
+    font-size: 1rem;
 
     border-radius: 10px;
     border: none;

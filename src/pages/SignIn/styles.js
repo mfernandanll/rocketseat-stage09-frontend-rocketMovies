@@ -9,28 +9,32 @@ export const Container = styled.div`
 `
 
 export const Form = styled.form`
-  padding: 0 136px;
+  padding: 0 8.5rem;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 0.5rem;
 
   text-align: center;
 
   > h1 {
-    font-size: 48px;
+    font-size: 3rem;
     color: ${({ theme }) => theme.COLORS.ROSE};
-  }
-
-  > h2 {
-    font-size: 24px;
-    margin: 48px 0;
+    font-weight: bold;
   }
 
   > p {
-    font-size: 14px;
+    font-size: 0.87rem;
+    color: ${({ theme }) => theme.COLORS.GRAY_150};
+  }
+
+  > h2 {
+    font-size: 1.5rem;
+    margin: 3rem 0;
     color: ${({ theme }) => theme.COLORS.WHITE};
+    font-weight: medium;
   }
 
   > a {
@@ -38,7 +42,7 @@ export const Form = styled.form`
   }
 
   > button {
-    margin-bottom: 42px;
+    margin: 1rem 0 2.62rem;
   }
 `
 export const Background = styled.div`
