@@ -5,8 +5,6 @@ export const Container = styled.div`
   width: 100%;
   height: 100vh;
 
-  margin-bottom: 85px;
-
   display: grid;
   grid-template-rows: 116px 132px auto;
   grid-template-areas: 
