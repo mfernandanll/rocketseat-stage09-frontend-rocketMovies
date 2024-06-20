@@ -17,6 +17,10 @@ export function Home() {
 
   const tagsNames = tags.map(tag => tag.name)
 
+  const sendSearch = (searchData) => {
+    setSearch(searchData)
+  }
+
   function handleMoviePreview(id) {
     navigate(`/moviePreview/${id}`);
   }
@@ -44,15 +48,13 @@ export function Home() {
     fetchNotes();
   }, [search, tagSelected]);
 
-  const sendSearch = (searchData) => {
-    setSearch(searchData)
-  }
-
   return (
     <Container>
       <Header sendSearch={sendSearch}/>
+
       <Title>
         <h2>Meus Filmes</h2>
+        
         <Button to="/createMovie">
           <FiPlus /> Adicionar filme
         </Button>

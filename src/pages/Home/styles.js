@@ -6,7 +6,7 @@ export const Container = styled.div`
   height: 100vh;
 
   display: grid;
-  grid-template-rows: 116px 132px auto;
+  grid-template-rows: 7.25rem 8.25rem auto;
   grid-template-areas: 
   "header"
   "title"
@@ -20,17 +20,17 @@ export const Title = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  padding: 0 123px;
+  padding: 0 7.68rem;
 
 
   > h2 {
-    font-size: 32px;
+    font-size: 2rem;
   }
 `
 
 export const Button = styled(Link)`
-  width: 207px;
-  height: 48px;
+  width: 12.93rem;
+  height: 3rem;
 
   background-color: ${({ theme }) => theme.COLORS.ROSE};
   color: ${({ theme }) => theme.COLORS.GRAY_700};
