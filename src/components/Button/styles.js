@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.button`
   width: 100%;
-  height: 48px;
+  height: 3.5rem;
 
   background-color: ${({ theme, $iSactive }) => $iSactive ? theme.COLORS.ROSE : theme.COLORS.GRAY_800};
   color: ${({ theme, $iSactive }) => $iSactive ? theme.COLORS.GRAY_800 : theme.COLORS.ROSE};

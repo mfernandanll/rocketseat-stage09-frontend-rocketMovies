@@ -5,9 +5,12 @@ export const Container = styled.button`
   color: ${({ theme }) => theme.COLORS.ROSE};
 
   border: none;
-  font-size: 16px;
+  font-size: 1rem;
 
   display: flex;
   align-items: center;
 
+  > svg {
+    margin-right: 0.5rem;
+  }
 `

@@ -25,7 +25,7 @@ export const Container = styled.div`
 
   > input{
     width: 100%;
-    height: 56px;
+    height: 3.5rem;
     padding: 1rem;
 
     background-color: ${({ theme }) => theme.COLORS.GRAY_600};
@@ -42,7 +42,7 @@ export const Container = styled.div`
   }
 
   > svg {
-    margin-left: 16px;
+    margin-left: 1rem;
   }
  
 `

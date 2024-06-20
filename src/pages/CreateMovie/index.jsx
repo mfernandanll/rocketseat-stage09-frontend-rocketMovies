@@ -71,15 +71,17 @@ export function CreateMovie() {
   return (
     <Container>
       <Header/>
+
       <Title>
         <ButtonText onClick={handleBack}>
           <FaArrowLeft/> Voltar
         </ButtonText>
       </Title>
+
       <Section>
         <form>
           <Fieldset>
-            <legend>Novo Filme</legend>
+            <legend>Novo filme</legend>
 
             <div className="col-2">
               <InputField 
@@ -89,6 +91,7 @@ export function CreateMovie() {
                 placeholder="Título"
                 onChange={e => setTitle(e.target.value)}
               />
+
               <InputField 
                 type="text" 
                 inputTitle="note" 
@@ -99,10 +102,9 @@ export function CreateMovie() {
             </div>
 
             <TextArea 
-              placeholder="Observações" 
+              placeholder="Descrição" 
               onChange={e => setDescription(e.target.value)}
             />
-
 
             <Marks>
               <h2>Marcadores</h2>
@@ -136,6 +138,7 @@ export function CreateMovie() {
                 iSactive={false}
                 onClick={handleDiscardMovie}
               />
+              
               <Button 
                 title="Salvar alterações"
                 onClick={handleNewMovieNote}

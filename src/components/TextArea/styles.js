@@ -2,9 +2,9 @@ import styled from 'styled-components'
 
 export const Container = styled.textarea`
   width: 100%;
-  height: 274px;
+  height: 17.12rem;
 
-  font-size: 14px;
+  font-size: 0.87rem;
 
   background-color: ${({ theme }) => theme.COLORS.GRAY_600};
   color: ${({ theme }) => theme.COLORS.GRAY_100};
@@ -12,9 +12,9 @@ export const Container = styled.textarea`
   border: none;
   resize: none;
 
-  margin-bottom: 8px;
-  border-radius: 10px;
-  padding: 16px;
+  margin-bottom: 0.5rem;
+  border-radius: 0.62rem;
+  padding: 1rem;
 
   &::placeholder {
     color: ${({ theme }) => theme.COLORS.GRAY_100} 
