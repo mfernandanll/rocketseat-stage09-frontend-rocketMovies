@@ -8,14 +8,14 @@ import { Section } from "../../components/Section";
 import { Container, Description, Row, Title } from "./styles";
 import { Tag } from "../../components/Tag";
 import { CiClock2 } from "react-icons/ci";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { IoIosStar } from "react-icons/io";
+import { useNavigate, useParams } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa6";
 import { format } from 'date-fns';
 
 import avatarPlaceholder from "../../assets/avatar_placeholder.svg";
 import { ptBR } from "date-fns/locale";
 import { ButtonText } from "../../components/ButtonText";
+import { Rating } from "../../components/Rating";
 
 export function MoviePreview() {
   const [data, setData] = useState(null);
@@ -63,10 +63,7 @@ export function MoviePreview() {
         <Section>
           <Row>
             <h1>{data.title}</h1>
-            {
-              data.rating &&
-              [...Array(data.rating)].map((_, i) => <IoIosStar key={i} />)
-            }
+            <Rating grade={data.rating} isBigSize />
           </Row>
           <Row>
             <img src={avatarUrl} alt={user.name} />

@@ -1,17 +1,13 @@
+import { Rating } from "../Rating";
 import { Tag } from "../Tag";
 import { Container } from "./styles";
-import { IoIosStar } from "react-icons/io";
 
 export function Card({ data, ...rest }) {
   return (
     <Container {...rest}>
       <h3>{data.title}</h3>
       <div className="stars">
-        <IoIosStar />
-        <IoIosStar />
-        <IoIosStar />
-        <IoIosStar />
-        <IoIosStar />
+        <Rating grade={data.rating} isBigSize={false} />
       </div>
 
       <p>{data.description}</p>
