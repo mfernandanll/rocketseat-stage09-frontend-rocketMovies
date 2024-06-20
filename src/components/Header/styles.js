@@ -9,6 +9,7 @@ export const Container = styled.header`
   display: flex;
   align-items: center;
   gap: 4rem;
+  justify-content: space-between;
 
   border-bottom-width: 1px;
   border-bottom-style: solid;
@@ -23,6 +24,13 @@ export const Brand = styled.div`
   font-size: 1rem;
   font-weight: 700;
 `
+
+export const Search = styled.div`
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+`;
+
 export const Profile = styled(Link)`
   display: flex;
   align-items: flex-start;

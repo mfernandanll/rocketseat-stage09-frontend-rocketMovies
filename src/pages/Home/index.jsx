@@ -6,6 +6,7 @@ import { Button, Container, Title } from "./styles";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
+import { InputField } from "../../components/InputField";
 
 export function Home() {
   const [notes, setNotes] = useState([]);
@@ -16,10 +17,6 @@ export function Home() {
   const navigate = useNavigate();
 
   const tagsNames = tags.map(tag => tag.name)
-
-  const sendSearch = (searchData) => {
-    setSearch(searchData)
-  }
 
   function handleMoviePreview(id) {
     navigate(`/moviePreview/${id}`);
@@ -50,11 +47,17 @@ export function Home() {
 
   return (
     <Container>
-      <Header sendSearch={sendSearch}/>
+      <Header>
+        <InputField 
+          placeholder="Pesquisar pelo título" 
+          type="text"
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </Header>
 
       <Title>
         <h2>Meus Filmes</h2>
-        
+
         <Button to="/createMovie">
           <FiPlus /> Adicionar filme
         </Button>

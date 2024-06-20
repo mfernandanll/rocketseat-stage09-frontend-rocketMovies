@@ -1,5 +1,4 @@
-import { InputField } from "../InputField";
-import { Brand, Container, Profile, Logout } from "./styles";
+import { Brand, Container, Profile, Logout, Search } from "./styles";
 import { useAuth } from '../../hooks/auth';
 import { useNavigate } from "react-router-dom";
 
@@ -7,7 +6,7 @@ import { api } from "../../services/api";
 
 import avatarPlaceholder from "../../assets/avatar_placeholder.svg";
 
-export function Header({sendSearch}) {
+export function Header({ children }) {
   const { signOut, user } = useAuth();
   const navigation = useNavigate();
 
@@ -24,11 +23,7 @@ export function Header({sendSearch}) {
         <h1>RocketMovies</h1>
       </Brand>
 
-      <InputField 
-        placeholder="Pesquisar pelo título" 
-        type="text"
-        onChange={(e) => sendSearch(e.target.value)}
-      />
+      <Search>{children}</Search>
       
       <Profile to="/profile">
         <div>
