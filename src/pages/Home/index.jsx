@@ -2,7 +2,7 @@ import { FiPlus } from "react-icons/fi";
 import { Card } from "../../components/Card";
 import { Header } from "../../components/Header";
 import { Section } from "../../components/Section";
-import { Button, Container, Title } from "./styles";
+import { Button, Container, Content, Title } from "./styles";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
@@ -55,25 +55,28 @@ export function Home() {
         />
       </Header>
 
-      <Title>
-        <h2>Meus Filmes</h2>
+      <Content>
+        <Title>
+          <h2>Meus Filmes</h2>
 
-        <Button to="/createMovie">
-          <FiPlus /> Adicionar filme
-        </Button>
-      </Title>
+          <Button to="/createMovie">
+            <FiPlus /> Adicionar filme
+          </Button>
+        </Title>
 
-      <Section>
-        {
-          notes.map(note => (
-            <Card
-              key={String(note.id)}
-              data={note}
-              onClick={() => handleMoviePreview(note.id)}
-            />
-          ))
-        }
-      </Section>
+        <Section>
+          {
+            notes.map(note => (
+              <Card
+                key={String(note.id)}
+                data={note}
+                onClick={() => handleMoviePreview(note.id)}
+              />
+            ))
+          }
+        </Section>
+      </Content>
+      
     </Container>
   );
 }

@@ -5,12 +5,12 @@ import { api } from "../../services/api";
 
 import { Header } from "../../components/Header";
 import { Section } from "../../components/Section";
-import { Container, Description, Row, Title } from "./styles";
+import { Container, Content, Description, Row, SubHeader, Tags } from "./styles";
 import { Tag } from "../../components/Tag";
 import { CiClock2 } from "react-icons/ci";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa6";
-import { format } from 'date-fns';
+import { format } from "date-fns";
 
 import avatarPlaceholder from "../../assets/avatar_placeholder.svg";
 import { ptBR } from "date-fns/locale";
@@ -22,8 +22,10 @@ export function MoviePreview() {
   const { user } = useAuth();
   const params = useParams();
 
-  const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder;
-  
+  const avatarUrl = user.avatar
+    ? `${api.defaults.baseURL}/files/${user.avatar}`
+    : avatarPlaceholder;
+
   const navigate = useNavigate();
 
   async function handleRemove() {
@@ -51,44 +53,46 @@ export function MoviePreview() {
   return (
     <Container>
       <Header />
-      <Title>
-        <ButtonText onClick={handleBack}>
-          <FaArrowLeft/> Voltar
-        </ButtonText>
-        <ButtonText onClick={handleRemove}>
-          Excluir filme
-        </ButtonText>
-      </Title>
-      {data && (
-        <Section>
-          <Row>
-            <h1>{data.title}</h1>
-            <Rating grade={data.rating} isBigSize />
-          </Row>
-          <Row>
-            <img src={avatarUrl} alt={user.name} />
-            <span>Por {user.name}</span>
-            <CiClock2 />
-            <span>{format(data.created_at, "dd/MM/yyyy 'às' HH:mm", { locale: ptBR})}</span>
-          </Row>
-          {
-              data.tags &&
-              <Row>
-                <div className="tags">
-                  {
-                    data.tags.map(tag => (
-                      <Tag key={String(tag.id)} title={tag.name} secondaryColor />
-                    ))
-                  }
-                </div>
-              </Row>
-          }
-          
-          <Description>
-            {data.description}
-          </Description>
-        </Section>
-      )}
+
+      <Content>
+        <SubHeader>
+          <ButtonText onClick={handleBack}>
+            <FaArrowLeft /> Voltar
+          </ButtonText>
+
+          <ButtonText onClick={handleRemove}>Excluir filme</ButtonText>
+        </SubHeader>
+
+        {data && (
+          <Section>
+            <Row>
+              <h1>{data.title}</h1>
+              <Rating grade={data.rating} isBigSize />
+            </Row>
+
+            <Row>
+              <img src={avatarUrl} alt={user.name} />
+              <span>Por {user.name}</span>
+              <CiClock2 />
+              <span>
+                {format(data.created_at, "dd/MM/yyyy 'às' HH:mm", {
+                  locale: ptBR,
+                })}
+              </span>
+            </Row>
+
+            {data.tags && (
+              <Tags className="tags">
+                  {data.tags.map((tag) => (
+                    <Tag key={String(tag.id)} title={tag.name} secondaryColor />
+                  ))}
+              </Tags>
+            )}
+
+            <Description>{data.description}</Description>
+          </Section>
+        )}
+      </Content>
     </Container>
   );
 }

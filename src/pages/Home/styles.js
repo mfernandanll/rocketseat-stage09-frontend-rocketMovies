@@ -6,22 +6,23 @@ export const Container = styled.div`
   height: 100vh;
 
   display: grid;
-  grid-template-rows: 7.25rem 8.25rem auto;
+  grid-template-rows: 7.25rem auto;
   grid-template-areas: 
   "header"
-  "title"
-  "section";
+  "content";
+`
+
+export const Content= styled.div`
+  grid-area: content;
+  margin: 0 7.68rem;
 `
 
 export const Title = styled.div`
-  grid-area: title;
+  height: 8.25rem;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  padding: 0 7.68rem;
-
 
   > h2 {
     font-size: 2rem;

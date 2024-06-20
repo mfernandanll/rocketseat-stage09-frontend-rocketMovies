@@ -5,10 +5,10 @@ export const Container = styled.div`
   height: 100vh;
 
   display: grid;
-  grid-template-rows: 116px 132px auto;
+  grid-template-rows: 7.25rem auto;
   grid-template-areas: 
   "header"
-  "section";
+  "content";
 `
 
 export const Head = styled.header`
@@ -34,6 +34,7 @@ export const Head = styled.header`
 `
 
 export const Form = styled.form`
+  grid-area: content;
   max-width: 340px;
   margin: 30px auto 0;
 

@@ -5,58 +5,71 @@ export const Container = styled.div`
   height: 100vh;
 
   display: grid;
-  grid-template-rows: 116px 132px auto;
+  grid-template-rows: 7.25rem auto;
   grid-template-areas: 
   "header"
-  "title"
-  "section";
+  "content";
 `
 
-export const Title = styled.div`
-  grid-area: title;
+export const Content = styled.div`
+  grid-area: content;
+  margin: 0 7.68rem;
+`
 
+export const SubHeader = styled.div`
+  height: 8.25rem;
+  
   display: flex;
   align-items: center;
   justify-content: space-between;
 
-  padding: 0 123px;
-
   > a {
     color: ${({ theme }) => theme.COLORS.ROSE};
+  }
+`
+export const Title = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  > h1 {
+    font-size: 2.25rem;
+    margin-right: 1.12rem;
   }
 `
 
 export const Row = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 1.5rem;
 
-  > h1, .stars {
-    font-size: 36px;
-    margin-right: 18px;
+  > h1 {
+    font-size: 2.25rem;
+    margin-right: 1.12rem;
   }
 
-  > svg, .stars {
+  > svg {
     color: ${({ theme }) => theme.COLORS.ROSE};
   }
 
   > img {
-    width: 16px;
-    height: 16px;
+    width: 1rem;
+    height: 1rem;
     border-radius: 35px;
   }
 
   > span, img, svg {
-    margin-right: 8px;
+    margin-right: 0.5rem;
   }
 
-  .tags {
-    margin: 16px 0 40px 0;
-  }
+`
+
+export const Tags = styled(Row)`
+  margin: 2.5rem 0;
 `
 
 export const Description = styled.p`
-  font-size: 16px;
-  margin-bottom: 14px;
+  font-size: 1rem;
+  margin-bottom: 0.87rem;
   text-align: justify;
 `

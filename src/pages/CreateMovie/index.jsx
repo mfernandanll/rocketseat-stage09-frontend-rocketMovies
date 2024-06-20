@@ -6,7 +6,7 @@ import { InputField } from "../../components/InputField";
 import { NoteItem } from "../../components/NoteItem";
 import { Section } from "../../components/Section";
 import { TextArea } from "../../components/TextArea";
-import { Container, Fieldset, Marks, Title } from "./styles";
+import { Container, Content, Fieldset, Marks, SubHeader } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { api } from "../../services/api";
@@ -22,7 +22,7 @@ export function CreateMovie() {
   const navigate = useNavigate();
 
   function handleAddTag() {
-    setTags(prevState => [...prevState, newTag]);
+    setTags((prevState) => [...prevState, newTag]);
     setNewTag("");
   }
 
@@ -31,7 +31,7 @@ export function CreateMovie() {
   }
 
   function handleRemoveTag(deleted) {
-    setTags(prevState => prevState.filter(tag => tag !== deleted));
+    setTags((prevState) => prevState.filter((tag) => tag !== deleted));
   }
 
   async function handleNewMovieNote() {
@@ -44,14 +44,16 @@ export function CreateMovie() {
     }
 
     if (newTag) {
-      return alert("Você deixou uma tag no campo para adicionar, mas não clicou em adicionar. Clique para adicionar ou deixe o campo vazio.");
+      return alert(
+        "Você deixou uma tag no campo para adicionar, mas não clicou em adicionar. Clique para adicionar ou deixe o campo vazio."
+      );
     }
 
     await api.post("/movieNotes", {
       title,
       description,
       tags,
-      rating
+      rating,
     });
 
     alert("Nota criada com sucesso!");
@@ -70,83 +72,81 @@ export function CreateMovie() {
 
   return (
     <Container>
-      <Header/>
+      <Header />
 
-      <Title>
-        <ButtonText onClick={handleBack}>
-          <FaArrowLeft/> Voltar
-        </ButtonText>
-      </Title>
+      <Content>
+        <SubHeader>
+          <ButtonText onClick={handleBack}>
+            <FaArrowLeft /> Voltar
+          </ButtonText>
+        </SubHeader>
 
-      <Section>
-        <form>
-          <Fieldset>
-            <legend>Novo filme</legend>
+        <Section>
+          <form>
+            <Fieldset>
+              <legend>Novo filme</legend>
 
-            <div className="col-2">
-              <InputField 
-                type="text" 
-                inputTitle="title" 
-                title="Título" 
-                placeholder="Título"
-                onChange={e => setTitle(e.target.value)}
+              <div className="col-2">
+                <InputField
+                  type="text"
+                  inputTitle="title"
+                  title="Título"
+                  placeholder="Título"
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+
+                <InputField
+                  type="text"
+                  inputTitle="note"
+                  title="Nota"
+                  placeholder="Sua nota (de 0 a 5)"
+                  onChange={(e) => setRating(e.target.value)}
+                />
+              </div>
+
+              <TextArea
+                placeholder="Descrição"
+                onChange={(e) => setDescription(e.target.value)}
               />
 
-              <InputField 
-                type="text" 
-                inputTitle="note" 
-                title="Nota" 
-                placeholder="Sua nota (de 0 a 5)"
-                onChange={e => setRating(e.target.value)}
-              />
-            </div>
+              <Marks>
+                <h2>Marcadores</h2>
 
-            <TextArea 
-              placeholder="Descrição" 
-              onChange={e => setDescription(e.target.value)}
-            />
-
-            <Marks>
-              <h2>Marcadores</h2>
-
-              <div className="tags">
-                {
-                  tags.map((tag, index) => (
+                <div className="tags">
+                  {tags.map((tag, index) => (
                     <NoteItem
                       key={String(index)}
                       value={tag}
                       onClick={() => handleRemoveTag(tag)}
                     />
-                  ))
-                }
+                  ))}
 
-                <NoteItem
-                  isNew
-                  placeholder="Novo marcador"
-                  onChange={e => setNewTag(e.target.value)}
-                  value={newTag}
-                  onClick={handleAddTag}
+                  <NoteItem
+                    isNew
+                    placeholder="Novo marcador"
+                    onChange={(e) => setNewTag(e.target.value)}
+                    value={newTag}
+                    onClick={handleAddTag}
+                  />
+                </div>
+              </Marks>
+
+              <div className="col-2">
+                <Button
+                  title="Descartar alterações"
+                  iSactive={false}
+                  onClick={handleDiscardMovie}
                 />
-                
+
+                <Button
+                  title="Salvar alterações"
+                  onClick={handleNewMovieNote}
+                />
               </div>
-            </Marks>
-
-
-            <div className="col-2">
-              <Button 
-                title="Descartar alterações"
-                iSactive={false}
-                onClick={handleDiscardMovie}
-              />
-              
-              <Button 
-                title="Salvar alterações"
-                onClick={handleNewMovieNote}
-              />
-            </div>
-          </Fieldset>
-        </form>
-      </Section>
+            </Fieldset>
+          </form>
+        </Section>
+      </Content>
     </Container>
-  )
+  );
 }

@@ -6,20 +6,22 @@ export const Container = styled.div`
   height: 100vh;
 
   display: grid;
-  grid-template-rows: 7.25rem 8.25rem auto;
+  grid-template-rows: 7.25rem auto;
   grid-template-areas: 
   "header"
-  "title"
-  "section";
+  "content";
 `
 
-export const Title = styled.div`
-  grid-area: title;
+export const Content= styled.div`
+  grid-area: content;
+  margin: 0 7.68rem;
+`
+
+export const SubHeader = styled.div`
+  height: 8.25rem;
 
   display: flex;
   align-items: center;
-
-  padding: 0 7.68rem;
 `
 
 export const Fieldset = styled.fieldset`
