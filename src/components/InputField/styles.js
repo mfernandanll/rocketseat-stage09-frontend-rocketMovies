@@ -29,7 +29,7 @@ export const Container = styled.div`
     padding: 1rem;
 
     background-color: ${({ theme }) => theme.COLORS.GRAY_600};
-    color: ${({ theme }) => theme.COLORS.GRAY_100};
+    color: ${({ theme }) => theme.COLORS.WHITE};
 
     font-size: 1rem;
 

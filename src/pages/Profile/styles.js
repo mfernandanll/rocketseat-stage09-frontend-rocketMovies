@@ -14,15 +14,15 @@ export const Container = styled.div`
 export const Head = styled.header`
   grid-area: header;
 
-  height: 116px;
+  height: 7.25rem;
   width: 100%;
-  padding: 30px 123px;
+  padding: 1.87rem 7.68rem;
 
   background-color: ${({ theme }) => theme.COLORS.ROSE_700};
 
   display: flex;
   align-items: center;
-  gap: 64px;
+  gap: 4rem;
 
   border-bottom-width: 1px;
   border-bottom-style: solid;
@@ -35,29 +35,33 @@ export const Head = styled.header`
 
 export const Form = styled.form`
   grid-area: content;
-  max-width: 340px;
-  margin: 30px auto 0;
+  width: 21.25rem;
+  margin: 1.87rem auto 0;
 
-  > div:nth-child(4) {
-    margin-top: 24px;
+  > div:nth-child(4), button {
+    margin-top: 1.5rem;
+  }
+
+  > div:not(#avatar){
+    margin-bottom: 0.5rem;
   }
 `
 export const Avatar = styled.div`
   position: relative;
-  margin: -124px auto 32px;
+  margin: -7.75rem auto 4rem;
 
-  width: 186px;
-  height: 186px;
+  width: 11.62rem;
+  height: 11.62rem;
   
   > img {
     border-radius: 50%;
-    width: 186px;
-    height: 186px;
+    width: 11.62rem;
+    height: 11.62rem;
   }
 
   > label {
-    width: 48px;
-    height: 48px;
+    width: 3rem;
+    height: 3rem;
 
     background-color: ${({ theme }) => theme.COLORS.ROSE};
     border-radius: 50%;
@@ -77,9 +81,9 @@ export const Avatar = styled.div`
     }
 
     svg {
-      width: 20px;
-      height: 20px;
-      color: ${({ theme }) => theme.COLORS.BACKGROUND_800};
+      width: 1.25rem;
+      height: 1.25rem;
+      color: ${({ theme }) => theme.COLORS.GRAY_800};
     }
   }
 `
