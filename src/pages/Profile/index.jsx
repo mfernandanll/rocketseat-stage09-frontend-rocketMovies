@@ -62,7 +62,7 @@ export function Profile() {
       </Head>
 
       <Form>
-        <Avatar id="avatar">
+        <Avatar id="avatarInput">
           <img src={avatar} alt={user.name} />
           
           <label htmlFor="avatar">

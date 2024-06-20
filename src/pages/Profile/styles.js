@@ -42,7 +42,7 @@ export const Form = styled.form`
     margin-top: 1.5rem;
   }
 
-  > div:not(#avatar){
+  > div:not(#avatarInput){
     margin-bottom: 0.5rem;
   }
 `
