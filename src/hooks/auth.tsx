@@ -1,21 +1,48 @@
 import {
   createContext,
+  ReactNode,
   useContext,
   useEffect,
   useState
 } from 'react';
 
-const AuthContext = createContext({});
-
 import { api } from "../services/api";
 
-function AuthProvider({ children }) {
-  const [data, setData] = useState({});
+interface AuthContextType {
+  signIn: (name: string, password: string) => Promise<void>
+  signOut: () => void
+  updatedProfile: (user: User, avatarFile: string) => Promise<void>,
+  user: User;
+}
 
-  async function signIn({ email, password }) {
+interface AuthProviderProps {
+  children: ReactNode
+}
+
+interface DataApiResponse {
+  token: string;
+  user: User;
+}
+
+export interface User {
+  name: string;
+  email: string;
+  password: string;
+  old_password?: string;
+  avatar?: string;
+}
+
+const AuthContext = createContext({} as AuthContextType);
+
+function AuthProvider({ children }: AuthProviderProps) {
+  const [data, setData] = useState<DataApiResponse>({} as DataApiResponse);
+
+  async function signIn( email: string, password: string ) {
     try {
       const response = await api.post("sessions", { email, password });
       const { token, user } = response.data;
+
+
       
       localStorage.setItem("@rocketnotes:user", JSON.stringify(user));
       localStorage.setItem("@rocketnotes:token", token);
@@ -24,16 +51,16 @@ function AuthProvider({ children }) {
 
       setData({ token, user });
 
-    } catch (error) {
-      if (error.response) {
-        alert(error.response.data.message);
+    } catch (error: unknown) {
+      if (error instanceof Error && 'response' in error && error.response) {
+        alert((error.response as any).data.message);
       } else {
         alert("Não foi possível entrar.");
       }
     }
   }
 
-  async function updatedProfile({ user, avatarFile }) {
+  async function updatedProfile( user: User, avatarFile: string ) {
     try {
       if (avatarFile) {
         const fileUploadForm = new FormData();
@@ -51,9 +78,9 @@ function AuthProvider({ children }) {
       });
 
       alert("Perfil atualizado!");
-    } catch (error) {
-      if (error.response) {
-        alert(error.response.data.message);
+    } catch (error: unknown) {
+      if (error instanceof Error && 'response' in error && error.response) {
+        alert((error.response as any).data.message);
       } else {
         alert("Não foi possível atualizar o perfil.");
       }
@@ -64,7 +91,7 @@ function AuthProvider({ children }) {
     localStorage.removeItem("@rocketnotes:token");
     localStorage.removeItem("@rocketnotes:user");
 
-    setData({});
+    setData({} as DataApiResponse);
   }
 
   useEffect(() => {

@@ -7,7 +7,6 @@ export const Container = styled.button`
   background-color: ${({ theme, $iSactive }) => $iSactive ? theme.COLORS.ROSE : theme.COLORS.GRAY_800};
   color: ${({ theme, $iSactive }) => $iSactive ? theme.COLORS.GRAY_800 : theme.COLORS.ROSE};
 
-
   border: 0;
   border-radius: 8px;
 
