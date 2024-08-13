@@ -5,8 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 
 import avatarPlaceholder from "../../assets/avatar_placeholder.svg";
+import { ReactNode } from "react";
 
-export function Header({ children }) {
+interface HeaderProps {
+  children?: ReactNode
+}
+
+export function Header({ children }: HeaderProps) {
   const { signOut, user } = useAuth();
   const navigation = useNavigate();
 

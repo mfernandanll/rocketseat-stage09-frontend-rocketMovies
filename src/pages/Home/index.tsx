@@ -8,7 +8,7 @@ import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import { InputField } from "../../components/InputField";
 
-interface Tag {
+export interface Tag {
   id: number;
   name: string;
   note_id: number;

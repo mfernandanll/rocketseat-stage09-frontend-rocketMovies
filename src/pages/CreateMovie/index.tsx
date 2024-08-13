@@ -16,8 +16,8 @@ export function CreateMovie() {
   const [description, setDescription] = useState("");
   const [rating, setRating] = useState(0);
 
-  const [tags, setTags] = useState([]);
-  const [newTag, setNewTag] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
+  const [newTag, setNewTag] = useState('');
 
   const navigate = useNavigate();
 
@@ -30,7 +30,7 @@ export function CreateMovie() {
     navigate(-1);
   }
 
-  function handleRemoveTag(deleted) {
+  function handleRemoveTag(deleted: string) {
     setTags((prevState) => prevState.filter((tag) => tag !== deleted));
   }
 
@@ -96,11 +96,11 @@ export function CreateMovie() {
                 />
 
                 <InputField
-                  type="text"
+                  type="number"
                   inputTitle="note"
                   title="Nota"
                   placeholder="Sua nota (de 0 a 5)"
-                  onChange={(e) => setRating(e.target.value)}
+                  onChange={(e) => setRating(Number(e.target.value))}
                 />
               </div>
 
@@ -117,7 +117,7 @@ export function CreateMovie() {
                     <NoteItem
                       key={String(index)}
                       value={tag}
-                      onClick={() => handleRemoveTag(tag)}
+                      handleTagAction={() => handleRemoveTag(tag)}
                     />
                   ))}
 
@@ -126,7 +126,7 @@ export function CreateMovie() {
                     placeholder="Novo marcador"
                     onChange={(e) => setNewTag(e.target.value)}
                     value={newTag}
-                    onClick={handleAddTag}
+                    handleTagAction={handleAddTag}
                   />
                 </div>
               </Marks>
