@@ -8,23 +8,40 @@ import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import { InputField } from "../../components/InputField";
 
+interface Tag {
+  id: number;
+  name: string;
+  note_id: number;
+  user_id: number;
+}
+
+interface Note {
+  id: number;
+  title: string;
+  description: string;
+  rating: number;
+  user_id: number;
+}
+
 export function Home() {
-  const [notes, setNotes] = useState([]);
-  const [tags, setTags] = useState([]);
-  const [tagSelected, setTagSelected] = useState([]);
+  const [notes, setNotes] = useState<Note[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
+  const [tagSelected, setTagSelected] = useState('');
   const [search, setSearch] = useState("");
   
   const navigate = useNavigate();
 
   const tagsNames = tags.map(tag => tag.name)
 
-  function handleMoviePreview(id) {
+  function handleMoviePreview(id: number) {
     navigate(`/moviePreview/${id}`);
   }
 
   useEffect(() => {
     async function fetchTags() {
       const response = await api.get("/movieTags");
+      console.log(response.data);
+      
       setTags(response.data);
     }
 
