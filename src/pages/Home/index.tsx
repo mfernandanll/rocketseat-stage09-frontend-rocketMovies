@@ -15,12 +15,14 @@ export interface Tag {
   user_id: number;
 }
 
-interface Note {
+export interface Note {
   id: number;
   title: string;
   description: string;
   rating: number;
   user_id: number;
+  tags: Tag[];
+  created_at: string;
 }
 
 export function Home() {
@@ -40,7 +42,6 @@ export function Home() {
   useEffect(() => {
     async function fetchTags() {
       const response = await api.get("/movieTags");
-      console.log(response.data);
       
       setTags(response.data);
     }

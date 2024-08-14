@@ -11,14 +11,15 @@ import { CiClock2 } from "react-icons/ci";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa6";
 import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 
 import avatarPlaceholder from "../../assets/avatar_placeholder.svg";
-import { ptBR } from "date-fns/locale";
 import { ButtonText } from "../../components/ButtonText";
 import { Rating } from "../../components/Rating";
+import { Note } from "../Home";
 
 export function MoviePreview() {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState<Note>({} as Note);
   const { user } = useAuth();
   const params = useParams();
 
@@ -27,6 +28,10 @@ export function MoviePreview() {
     : avatarPlaceholder;
 
   const navigate = useNavigate();
+
+  const formatDate = (date: string) => format(new Date(date), "dd/MM/yyyy 'às' HH:mm", {
+    locale: ptBR,
+  })
 
   async function handleRemove() {
     const confirm = window.confirm("Deseja realmente remover a nota?");
@@ -40,10 +45,12 @@ export function MoviePreview() {
   function handleBack() {
     navigate(-1);
   }
+ 
 
   useEffect(() => {
     async function fetchNote() {
       const response = await api.get(`/movieNotes/${params.id}`);
+      
       setData(response.data);
     }
 
@@ -75,9 +82,7 @@ export function MoviePreview() {
               <span>Por {user.name}</span>
               <CiClock2 />
               <span>
-                {format(data.created_at, "dd/MM/yyyy 'às' HH:mm", {
-                  locale: ptBR,
-                })}
+                {data.created_at ? formatDate(data.created_at) : 0 }
               </span>
             </Row>
 
