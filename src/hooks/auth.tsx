@@ -11,7 +11,7 @@ import { api } from "../services/api";
 interface AuthContextType {
   signIn: (name: string, password: string) => Promise<void>
   signOut: () => void
-  updatedProfile: (user: User, avatarFile: string) => Promise<void>,
+  updatedProfile: (user: User, avatarFile: File | null) => Promise<void>,
   user: User;
 }
 
@@ -58,7 +58,7 @@ function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  async function updatedProfile( user: User, avatarFile: string ) {
+  async function updatedProfile( user: User, avatarFile?: File | null ) {
     try {
       if (avatarFile) {
         const fileUploadForm = new FormData();

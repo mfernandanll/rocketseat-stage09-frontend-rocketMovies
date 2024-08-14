@@ -5,7 +5,7 @@ import { Button } from "../../components/Button";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { useAuth } from "../../hooks/auth";
 
 import { api } from "../../services/api";
@@ -23,8 +23,8 @@ export function Profile() {
 
   const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder;
 
-  const [avatar, setAvatar] = useState(avatarUrl);
-  const [avatarFile, setAvatarFile] = useState(null);
+  const [avatar, setAvatar] = useState<string>(avatarUrl);
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
 
   const navigate = useNavigate();
 
@@ -38,15 +38,17 @@ export function Profile() {
 
     const userUpdated = Object.assign(user, updated);
 
-    await updatedProfile({ user: userUpdated, avatarFile });
+    await updatedProfile( userUpdated, avatarFile);
   }
 
-  function handleChangeAvatar(event) {
-    const file = event.target.files[0];
-    setAvatarFile(file);
-
-    const imagePreview = URL.createObjectURL(file);
-    setAvatar(imagePreview);
+  function handleChangeAvatar(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0]; 
+    
+    if (file) {
+      setAvatarFile(file);
+      const imagePreview = URL.createObjectURL(file);
+      setAvatar(imagePreview);
+    }
   }
 
   function handleBack() {
