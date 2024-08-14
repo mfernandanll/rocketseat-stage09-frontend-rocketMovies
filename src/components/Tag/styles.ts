@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
-export const Container = styled.span`
+interface ContainerProps {
+  $secondaryColor: boolean;
+}
+
+export const Container = styled.span<ContainerProps>`
   font-size: 12px;
   padding: 5px 16px;
   margin-right: 8px;

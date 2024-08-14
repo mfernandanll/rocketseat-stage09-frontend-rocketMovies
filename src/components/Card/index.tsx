@@ -1,8 +1,14 @@
+import { HTMLAttributes } from "react";
+import { Note } from "../../pages/Home";
 import { Rating } from "../Rating";
 import { Tag } from "../Tag";
 import { Container } from "./styles";
 
-export function Card({ data, ...rest }) {
+interface CardProps extends HTMLAttributes<HTMLDivElement>{
+  data: Note;
+}
+
+export function Card({ data, ...rest }: CardProps) {
   return (
     <Container {...rest}>
       <h3>{data.title}</h3>

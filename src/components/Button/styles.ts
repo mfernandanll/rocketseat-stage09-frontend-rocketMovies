@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
-export const Container = styled.button`
+interface ContainerProps {
+  $iSactive: boolean;
+}
+
+export const Container = styled.button<ContainerProps>`
   width: 100%;
   height: 3.5rem;
 
