@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { FiLock, FiMail, FiUser } from "react-icons/fi";
 import { FaArrowLeft } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
@@ -17,7 +17,9 @@ export function SignUp() {
 
   const navigate = useNavigate();
 
-  function handleSignUp() {
+  function handleSignUp(event: FormEvent) {
+    event.preventDefault();
+    
     if (!name || !email || !password) {
       return alert("Preencha todos os campos!");
     }
@@ -39,7 +41,7 @@ export function SignUp() {
 
   return (
     <Container>
-      <Form>
+      <Form onSubmit={handleSignUp}>
         <h1>RocketMovies</h1>
         <p>Aplicação para acompanhar tudo que assistir.</p>
         <h2>Crie sua conta</h2>
@@ -65,7 +67,7 @@ export function SignUp() {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <Button title="Cadastrar" onClick={handleSignUp} />
+        <Button title="Cadastrar" type="submit"/>
 
         <Link to="/">
           <FaArrowLeft /> Voltar para o login

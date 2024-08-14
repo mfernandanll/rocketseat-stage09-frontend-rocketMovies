@@ -5,7 +5,7 @@ import { Background, Container, Form } from "./styles";
 import { Link } from "react-router-dom";
 
 import { useAuth } from '../../hooks/auth';
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 export function SignIn() {
 
@@ -14,13 +14,14 @@ export function SignIn() {
 
   const { signIn } = useAuth();
 
-  function handleSignIn() {
+  function handleSignIn(event: FormEvent) {
+    event.preventDefault();
     signIn( email, password );
   }
 
   return (
     <Container>
-      <Form>
+      <Form onSubmit={handleSignIn}>
         <h1>RocketMovies</h1>
         <p>Aplicação para acompanhar tudo que assistir.</p>
         <h2>Faça seu login</h2>
@@ -39,7 +40,7 @@ export function SignIn() {
           onChange={e => setPassword(e.target.value)}
         />
 
-        <Button title="Entrar" onClick={handleSignIn} />
+        <Button title="Entrar" type="submit"/>
 
         <Link to="register" >Criar Conta</Link>
       </Form>
