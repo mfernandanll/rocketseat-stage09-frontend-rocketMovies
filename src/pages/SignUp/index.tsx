@@ -1,4 +1,3 @@
-import { FormEvent, useState } from "react";
 import { FiLock, FiMail, FiUser } from "react-icons/fi";
 import { FaArrowLeft } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,19 +9,32 @@ import { Button } from "../../components/Button";
 
 import { Background, Container, Form } from "./styles";
 
+import * as zod from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from "react-hook-form";
+
+const newUser = zod.object({
+  name:  zod.string().min(1, 'Informe o nome'),
+  email: zod.string().min(1, 'Informe o email').email('E-mail inválido'),
+  password: zod.string().min(1, 'Informe a senha'),
+})
+
+export type NewUserInfo = zod.infer<typeof newUser>
+
 export function SignUp() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors }
+  } = useForm<NewUserInfo>({
+    resolver: zodResolver(newUser),
+  })
 
   const navigate = useNavigate();
 
-  function handleSignUp(event: FormEvent) {
-    event.preventDefault();
-    
-    if (!name || !email || !password) {
-      return alert("Preencha todos os campos!");
-    }
+  function handleSignUp(data: NewUserInfo) {
+    const { name, email, password } = data;
 
     api
       .post("/users", { name, email, password })
@@ -37,11 +49,13 @@ export function SignUp() {
           alert("Não foi possível cadastrar.");
         }
       });
+    
+    reset();
   }
 
   return (
     <Container>
-      <Form onSubmit={handleSignUp}>
+      <Form onSubmit={handleSubmit(handleSignUp)}>
         <h1>RocketMovies</h1>
         <p>Aplicação para acompanhar tudo que assistir.</p>
         <h2>Crie sua conta</h2>
@@ -50,21 +64,24 @@ export function SignUp() {
           placeholder="Nome"
           type="text"
           icon={FiUser}
-          onChange={(e) => setName(e.target.value)}
+          errorMessage={errors.name?.message}
+          {...register('name')}
         />
 
         <InputField
           placeholder="E-mail"
           type="text"
           icon={FiMail}
-          onChange={(e) => setEmail(e.target.value)}
+          errorMessage={errors.email?.message}
+          {...register('email')}
         />
 
         <InputField
           placeholder="Senha"
           type="password"
           icon={FiLock}
-          onChange={(e) => setPassword(e.target.value)}
+          errorMessage={errors.password?.message}
+          {...register('password')}
         />
 
         <Button title="Cadastrar" type="submit"/>

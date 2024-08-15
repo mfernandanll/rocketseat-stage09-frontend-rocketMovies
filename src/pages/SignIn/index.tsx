@@ -5,23 +5,39 @@ import { Background, Container, Form } from "./styles";
 import { Link } from "react-router-dom";
 
 import { useAuth } from '../../hooks/auth';
-import { FormEvent, useState } from "react";
+
+import * as zod from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from "react-hook-form";
+
+const user = zod.object({
+  email: zod.string().min(1, 'Informe o email').email('E-mail inválido'),
+  password: zod.string().min(1, 'Informe a senha'),
+})
+
+export type UserInfo = zod.infer<typeof user>
 
 export function SignIn() {
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors }
+  } = useForm<UserInfo>({
+    resolver: zodResolver(user),
+  })
 
   const { signIn } = useAuth();
 
-  function handleSignIn(event: FormEvent) {
-    event.preventDefault();
+  function handleSignIn(data: UserInfo) {
+    const { email, password } = data;
     signIn( email, password );
+    reset();
   }
 
   return (
     <Container>
-      <Form onSubmit={handleSignIn}>
+      <Form onSubmit={handleSubmit(handleSignIn)}>
         <h1>RocketMovies</h1>
         <p>Aplicação para acompanhar tudo que assistir.</p>
         <h2>Faça seu login</h2>
@@ -30,14 +46,16 @@ export function SignIn() {
           placeholder="E-mail" 
           type="text" 
           icon={FiMail} 
-          onChange={e => setEmail(e.target.value)}
+          errorMessage={errors.email?.message}
+          {...register('email')}
         />
 
         <InputField 
           placeholder="Senha atual" 
           type="password" 
           icon={FiLock} 
-          onChange={e => setPassword(e.target.value)}
+          errorMessage={errors.password?.message}
+          {...register('password')}
         />
 
         <Button title="Entrar" type="submit"/>

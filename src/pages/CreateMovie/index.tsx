@@ -6,57 +6,89 @@ import { InputField } from "../../components/InputField";
 import { NoteItem } from "../../components/NoteItem";
 import { Section } from "../../components/Section";
 import { TextArea } from "../../components/TextArea";
-import { Container, Content, Fieldset, Marks, SubHeader } from "./styles";
+import { Container, Content, ErrorMessage, Fieldset, Marks, SubHeader } from "./styles";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { api } from "../../services/api";
 
-export function CreateMovie() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [rating, setRating] = useState(0);
+import * as zod from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useFieldArray, useForm } from "react-hook-form";
 
-  const [tags, setTags] = useState<string[]>([]);
-  const [newTag, setNewTag] = useState('');
+const newNote = zod.object({
+  title: zod.string().min(1, 'Informe o título do filme'),
+  description: zod.string().min(1, 'Informe a descrição do filme'),
+  rating: zod.number({ invalid_type_error: 'Informe a nota do filme'})
+    .min(0, 'Dê uma nota para o filme')
+    .max(5, 'A nota máxima é 5')
+    .nonnegative('A nota não pode ser negativa'),
+  tags: zod.array(zod.object({
+    value: zod.string()
+  })).nonempty('Adicione pelo menos uma tag'),
+  newTag: zod.string().optional()
+})
+
+export type NoteInfo = zod.infer<typeof newNote>
+
+export function CreateMovie() {
+  const {
+    register,
+    control,
+    handleSubmit,
+    reset,
+    setValue, 
+    watch,
+    formState: { errors }
+  } = useForm<NoteInfo>({
+    resolver: zodResolver(newNote),
+    defaultValues: {
+      tags: [], 
+    },
+  })
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: 'tags',
+  });
 
   const navigate = useNavigate();
 
   function handleAddTag() {
-    setTags((prevState) => [...prevState, newTag]);
-    setNewTag("");
+    const newTagValue = watch('newTag');
+                      
+    if (newTagValue) {
+      append({ value: newTagValue });
+      setValue('newTag', '');
+    }
+  }
+
+  function handleRemoveTag(index: number) {
+    remove(index)
   }
 
   function handleBack() {
     navigate(-1);
   }
 
-  function handleRemoveTag(deleted: string) {
-    setTags((prevState) => prevState.filter((tag) => tag !== deleted));
-  }
+  async function handleNewMovieNote(data: NoteInfo) {
+    const { title, description, rating, tags } = data;
 
-  async function handleNewMovieNote() {
-    if (!title) {
-      return alert("Digite o título da nota");
-    }
-
-    if (!rating) {
-      return alert("Dê uma nota para o filme");
-    }
-
-    if (newTag) {
+    if (watch('newTag')) {
       return alert(
         "Você deixou uma tag no campo para adicionar, mas não clicou em adicionar. Clique para adicionar ou deixe o campo vazio."
       );
     }
 
+    const formattedTags = tags.map((tag) => tag.value)
+   
     await api.post("/movieNotes", {
       title,
       description,
-      tags,
+      tags: formattedTags,
       rating,
     });
 
     alert("Nota criada com sucesso!");
+    reset();
     navigate("/");
   }
 
@@ -82,7 +114,7 @@ export function CreateMovie() {
         </SubHeader>
 
         <Section>
-          <form>
+          <form id="note" onSubmit={handleSubmit(handleNewMovieNote)}>
             <Fieldset>
               <legend>Novo filme</legend>
 
@@ -92,7 +124,8 @@ export function CreateMovie() {
                   inputTitle="title"
                   title="Título"
                   placeholder="Título"
-                  onChange={(e) => setTitle(e.target.value)}
+                  errorMessage={errors.title?.message}
+                  {...register('title')}
                 />
 
                 <InputField
@@ -100,35 +133,42 @@ export function CreateMovie() {
                   inputTitle="note"
                   title="Nota"
                   placeholder="Sua nota (de 0 a 5)"
-                  onChange={(e) => setRating(Number(e.target.value))}
+                  errorMessage={errors.rating?.message}
+                  {...register('rating', { valueAsNumber: true })}
                 />
               </div>
 
               <TextArea
                 placeholder="Descrição"
-                onChange={(e) => setDescription(e.target.value)}
+                errorMessage={errors.description?.message}
+                {...register('description')}
               />
 
               <Marks>
                 <h2>Marcadores</h2>
 
                 <div className="tags">
-                  {tags.map((tag, index) => (
+                  {fields.map((field, index) => (
                     <NoteItem
-                      key={String(index)}
-                      value={tag}
-                      handleTagAction={() => handleRemoveTag(tag)}
+                      key={field.id}
+                      value={field.value}
+                      handleTagAction={() => handleRemoveTag(index)}
+                      {...register(`tags.${index}.value`)}
                     />
                   ))}
 
                   <NoteItem
                     isNew
                     placeholder="Novo marcador"
-                    onChange={(e) => setNewTag(e.target.value)}
-                    value={newTag}
-                    handleTagAction={handleAddTag}
+                    value={String(watch('newTag') || '')}
+                    handleTagAction={handleAddTag}                   
+                    {...register('newTag')}
                   />
                 </div>
+                
+                {errors.tags?.message ? (
+                  <ErrorMessage role="alert">{errors.tags?.message}</ErrorMessage>
+                ) : null}
               </Marks>
 
               <div className="col-2">
@@ -139,8 +179,9 @@ export function CreateMovie() {
                 />
 
                 <Button
+                  form="note"
                   title="Salvar alterações"
-                  onClick={handleNewMovieNote}
+                  type="submit"
                 />
               </div>
             </Fieldset>

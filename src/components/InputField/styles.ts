@@ -2,6 +2,10 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   width: 100%;
+`
+
+export const Content = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
 
@@ -45,4 +49,12 @@ export const Container = styled.div`
     margin-left: 1rem;
   }
  
+`
+
+export const ErrorMessage = styled.p`
+  padding-top: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: red;
+  font-weight: 700;
 `

@@ -6,7 +6,7 @@ interface ContainerProps {
 
 export const Container = styled.button<ContainerProps>`
   width: 100%;
-  height: 3.5rem;
+  min-height: 3.5rem;
 
   background-color: ${({ theme, $iSactive }) => $iSactive ? theme.COLORS.ROSE : theme.COLORS.GRAY_800};
   color: ${({ theme, $iSactive }) => $iSactive ? theme.COLORS.GRAY_800 : theme.COLORS.ROSE};
