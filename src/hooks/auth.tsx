@@ -7,9 +7,11 @@ import {
 } from 'react';
 
 import { api } from "../services/api";
+import { NavigateFunction } from 'react-router-dom';
 
 interface AuthContextType {
   signIn: (name: string, password: string) => Promise<void>
+  signUp: (name: string, email: string, password: string, callback: NavigateFunction) => Promise<void>
   signOut: () => void
   updatedProfile: (user: User, avatarFile: File | null) => Promise<void>,
   user: User;
@@ -37,15 +39,15 @@ const AuthContext = createContext({} as AuthContextType);
 function AuthProvider({ children }: AuthProviderProps) {
   const [data, setData] = useState<DataApiResponse>({} as DataApiResponse);
 
-  async function signIn( email: string, password: string ) {
+  async function signIn(email: string, password: string) {
     try {
       const response = await api.post("sessions", { email, password });
       const { token, user } = response.data;
-      
+
       localStorage.setItem("@rocketnotes:user", JSON.stringify(user));
       localStorage.setItem("@rocketnotes:token", token);
-      
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}` 
+
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
       setData({ token, user });
 
@@ -58,7 +60,21 @@ function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  async function updatedProfile( user: User, avatarFile?: File | null ) {
+  async function signUp(name: string, email: string, password: string, callback: NavigateFunction) {
+    try {
+      api.post("/users", { name, email, password })
+      alert("Cadastro realizado com sucesso!");
+      callback("/");
+    } catch (error: unknown) {
+      if (error instanceof Error && 'response' in error && error.response) {
+        alert((error.response as any).data.message);
+      } else {
+        alert("Não foi possível cadastrar.");
+      }
+    }
+  }
+
+  async function updatedProfile(user: User, avatarFile?: File | null) {
     try {
       if (avatarFile) {
         const fileUploadForm = new FormData();
@@ -84,7 +100,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       }
     }
   }
-  
+
   function signOut() {
     localStorage.removeItem("@rocketnotes:token");
     localStorage.removeItem("@rocketnotes:user");
@@ -97,7 +113,7 @@ function AuthProvider({ children }: AuthProviderProps) {
     const user = localStorage.getItem("@rocketnotes:user");
 
     if (token && user) {
-      api.defaults.headers.common['Authorization'] = `Bearer ${token}` 
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
       setData({
         token,
@@ -110,6 +126,7 @@ function AuthProvider({ children }: AuthProviderProps) {
   return (
     <AuthContext.Provider value={{
       signIn,
+      signUp,
       signOut,
       updatedProfile,
       user: data.user

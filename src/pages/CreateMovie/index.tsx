@@ -17,7 +17,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 const newNote = zod.object({
   title: zod.string().min(1, 'Informe o título do filme'),
   description: zod.string().min(1, 'Informe a descrição do filme'),
-  rating: zod.number({ invalid_type_error: 'Informe a nota do filme'})
+  rating: zod.number({ invalid_type_error: 'Informe a nota do filme' })
     .min(0, 'Dê uma nota para o filme')
     .max(5, 'A nota máxima é 5')
     .nonnegative('A nota não pode ser negativa'),
@@ -35,13 +35,13 @@ export function CreateMovie() {
     control,
     handleSubmit,
     reset,
-    setValue, 
+    setValue,
     watch,
     formState: { errors }
   } = useForm<NoteInfo>({
     resolver: zodResolver(newNote),
     defaultValues: {
-      tags: [], 
+      tags: [],
     },
   })
 
@@ -54,7 +54,7 @@ export function CreateMovie() {
 
   function handleAddTag() {
     const newTagValue = watch('newTag');
-                      
+
     if (newTagValue) {
       append({ value: newTagValue });
       setValue('newTag', '');
@@ -79,17 +79,24 @@ export function CreateMovie() {
     }
 
     const formattedTags = tags.map((tag) => tag.value)
-   
+
     await api.post("/movieNotes", {
       title,
       description,
       tags: formattedTags,
       rating,
-    });
-
-    alert("Nota criada com sucesso!");
-    reset();
-    navigate("/");
+    }).then(() => {
+      alert("Nota criada com sucesso!");
+      reset();
+      navigate("/");
+    })
+      .catch((error) => {
+        if (error.response) {
+          alert(error.response.data.message);
+        } else {
+          alert("Não foi possível cadastrar a nota.");
+        }
+      });
   }
 
   function handleDiscardMovie() {
@@ -161,11 +168,11 @@ export function CreateMovie() {
                     isNew
                     placeholder="Novo marcador"
                     value={String(watch('newTag') || '')}
-                    handleTagAction={handleAddTag}                   
+                    handleTagAction={handleAddTag}
                     {...register('newTag')}
                   />
                 </div>
-                
+
                 {errors.tags?.message ? (
                   <ErrorMessage role="alert">{errors.tags?.message}</ErrorMessage>
                 ) : null}
