@@ -51,17 +51,12 @@ export function Home() {
   
   useEffect(() => {
     async function fetchNotes() {
-      if(tagsNames.includes(search)) {
-        setTagSelected(search)
-      } else {
-        setTagSelected("")
-      }
-      const response = await api.get(`/movieNotes?title=${tagSelected ? "" : search}&tags=${tagSelected}`);
+      const response = await api.get(`/movieNotes?search=${search}`);
       setNotes(response.data);
     }
 
     fetchNotes();
-  }, [search, tagSelected]);
+  }, [search]);
 
   return (
     <Container>
