@@ -8,6 +8,7 @@
   <a href="#features">Funcionalidades</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#technologies">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#usage">Utilização</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#users">Personas</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#license">Licença</a>
 </p>
 
@@ -64,6 +65,19 @@ $ npm run dev
 ```
 
 ⚠️ **Importante**: Este projeto está utilizando uma hospedagem gratuita para o seu backend, portanto, pode haver atrasos no tempo de resposta do servidor.
+
+<h2 id="users">👩🏾‍💻 Personas</h2>
+
+O RocketMovies possui uma persona principal: o usuário. O usuário tem acesso total às funcionalidades da aplicação, podendo criar uma nova nota de um filme, excluir notas de filmes, buscar por filmes (título, descrição, tags) e alterar informações do usuário (foto, nome, email e senha).
+
+Você pode criar um novo usuário ou testar a aplicação usando as seguintes informações de login:
+
+Usuário:
+
+- E-mail: user@email.com
+- Senha: 123
+
+
 
 <h2 id="license">📝 Licença</h2>
 
