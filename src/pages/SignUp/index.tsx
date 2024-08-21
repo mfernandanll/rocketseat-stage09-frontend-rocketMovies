@@ -27,7 +27,7 @@ export function SignUp() {
     register,
     handleSubmit,
     reset,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm<NewUserInfo>({
     resolver: zodResolver(newUser),
   })
@@ -73,7 +73,11 @@ export function SignUp() {
           {...register('password')}
         />
 
-        <Button title="Cadastrar" type="submit"/>
+        <Button 
+          type="submit"
+          loading={isSubmitting}
+          title="Cadastrar" 
+        />
 
         <Link to="/">
           <FaArrowLeft /> Voltar para o login

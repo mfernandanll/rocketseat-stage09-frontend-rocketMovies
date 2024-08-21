@@ -22,7 +22,7 @@ export function SignIn() {
     register,
     handleSubmit,
     reset,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm<UserInfo>({
     resolver: zodResolver(user),
   })
@@ -58,7 +58,11 @@ export function SignIn() {
           {...register('password')}
         />
 
-        <Button title="Entrar" type="submit"/>
+        <Button 
+          title="Entrar" 
+          type="submit"
+          loading={isSubmitting}
+        />
 
         <Link to="register" >Criar Conta</Link>
       </Form>
