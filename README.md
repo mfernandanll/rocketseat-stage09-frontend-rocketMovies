@@ -54,6 +54,7 @@ Este projeto foi desenvolvido com as seguintes tecnologias:
 
 <h2 id="usage">💡 Utilização</h2>
 
+A aplicação RocketMovies está disponível para uso [aqui](https://rocket-movies-frontend.netlify.app/).
 
 Você também pode instalá-la em sua máquina localmente. Para isso, clone o projeto, acesse a pasta, instale as dependências e inicie o servidor.
 
