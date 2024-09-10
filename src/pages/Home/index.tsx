@@ -1,12 +1,11 @@
 import { FiPlus } from "react-icons/fi";
 import { Card } from "../../components/Card";
-import { Header } from "../../components/Header";
+import { Header, SearchInfo } from "../../components/Header";
 import { Section } from "../../components/Section";
 import { Button, Container, Content, Title } from "./styles";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
-import { InputField } from "../../components/InputField";
 
 export interface Tag {
   id: number;
@@ -28,21 +27,21 @@ export interface Note {
 export function Home() {
   const [notes, setNotes] = useState<Note[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
-  const [tagSelected, setTagSelected] = useState('');
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState<string>("");
   
   const navigate = useNavigate();
-
-  const tagsNames = tags.map(tag => tag.name)
 
   function handleMoviePreview(id: number) {
     navigate(`/moviePreview/${id}`);
   }
 
+  function handleSearch(data: SearchInfo) {
+    setSearch(data.query);
+  }
+
   useEffect(() => {
     async function fetchTags() {
       const response = await api.get("/movieTags");
-      
       setTags(response.data);
     }
 
@@ -60,13 +59,7 @@ export function Home() {
 
   return (
     <Container>
-      <Header>
-        <InputField 
-          placeholder="Pesquisar pelo título" 
-          type="text"
-          onChange={(e) => setSearch(e.target.value)}
-        />
-      </Header>
+      <Header handleSearch={handleSearch} />
 
       <Content>
         <Title>

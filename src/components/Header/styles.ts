@@ -25,10 +25,19 @@ export const Brand = styled.div`
   font-weight: 700;
 `
 
-export const Search = styled.div`
+export const SearchBar = styled.form`
   display: flex;
   align-items: center;
   flex-grow: 1;
+  position: relative;
+
+  button {
+    background: transparent;
+    border: none;
+    color: ${({ theme }) => theme.COLORS.GRAY_100};
+    position: absolute;
+    right: 1rem;
+  }
 `;
 
 export const Profile = styled(Link)`
