@@ -27,7 +27,7 @@ export function SignUp() {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting }
+    formState: { errors, isSubmitting, isValid }
   } = useForm<NewUserInfo>({
     resolver: zodResolver(newUser),
   })
@@ -38,7 +38,7 @@ export function SignUp() {
 
   async function handleSignUp(data: NewUserInfo) {
     const { name, email, password } = data;
-    signUp(name, email, password, navigate)
+    await signUp(name, email, password, navigate)
     reset();
   }
 
@@ -75,7 +75,7 @@ export function SignUp() {
 
         <Button 
           type="submit"
-          loading={isSubmitting}
+          isLoading={isSubmitting}
           title="Cadastrar" 
         />
 

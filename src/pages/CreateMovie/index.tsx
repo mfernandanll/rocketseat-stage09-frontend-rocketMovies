@@ -37,7 +37,7 @@ export function CreateMovie() {
     reset,
     setValue,
     watch,
-    formState: { errors, isSubmitting }
+    formState: { errors, isSubmitting, isValid }
   } = useForm<NoteInfo>({
     resolver: zodResolver(newNote),
     defaultValues: {
@@ -181,7 +181,7 @@ export function CreateMovie() {
               <div className="col-2">
                 <Button
                   title="Descartar alterações"
-                  iSactive={false}
+                  variant="secondary"
                   onClick={handleDiscardMovie}
                 />
 
@@ -189,7 +189,7 @@ export function CreateMovie() {
                   form="note"
                   title="Salvar alterações"
                   type="submit"
-                  loading={isSubmitting}
+                  isLoading={isSubmitting}
                 />
               </div>
             </Fieldset>

@@ -9,6 +9,7 @@ import { useAuth } from '../../hooks/auth';
 import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 const user = zod.object({
   email: zod.string().min(1, 'Informe o email').email('E-mail inválido'),
@@ -22,18 +23,27 @@ export function SignIn() {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting }
+    setValue,
+    formState: { errors, isSubmitting, isValid }
   } = useForm<UserInfo>({
     resolver: zodResolver(user),
   })
 
   const { signIn } = useAuth();
 
-  function handleSignIn(data: UserInfo) {
+  async function handleSignIn(data: UserInfo) {
     const { email, password } = data;
-    signIn( email, password );
+    await signIn( email, password );
     reset();
   }
+
+  useEffect(() => {
+    setValue('email', 'cassio@gmail.com')
+    setValue('password', '123')
+
+    console.log(isValid);
+    
+  }, [])
 
   return (
     <Container>
@@ -59,9 +69,9 @@ export function SignIn() {
         />
 
         <Button 
-          title="Entrar" 
+          title= "Entrar"
           type="submit"
-          loading={isSubmitting}
+          isLoading={isSubmitting}
         />
 
         <Link to="register" >Criar Conta</Link>

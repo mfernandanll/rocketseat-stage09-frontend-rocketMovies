@@ -3,18 +3,19 @@ import { Container } from './styles'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLElement>{
   title: string;
-  loading?: boolean;
-  iSactive?: boolean;
+  isLoading?: boolean;
+  variant?: "primary" | "secondary"; 
 }
 
-export function Button({ title, loading = false, iSactive = true, ...rest }: ButtonProps) {
+export function Button({ title, isLoading = false, variant = 'primary', ...rest }: ButtonProps) {
   return (
     <Container
       type="button"
-      $iSactive= {iSactive}
+      $variant={variant}
+      disabled={isLoading}
       {...rest}
     >
-      {loading ? "Carregando..." : title}
+      {isLoading ? "Carregando..." : title}
     </Container >
   )
 }

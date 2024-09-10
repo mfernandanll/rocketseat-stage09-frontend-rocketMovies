@@ -1,15 +1,15 @@
 import styled from 'styled-components'
 
 interface ContainerProps {
-  $iSactive: boolean;
+  $variant: "primary" | "secondary";
 }
 
 export const Container = styled.button<ContainerProps>`
   width: 100%;
   min-height: 3.5rem;
 
-  background-color: ${({ theme, $iSactive }) => $iSactive ? theme.COLORS.ROSE : theme.COLORS.GRAY_800};
-  color: ${({ theme, $iSactive }) => $iSactive ? theme.COLORS.GRAY_800 : theme.COLORS.ROSE};
+  background-color: ${({ theme, $variant }) => $variant === 'primary' ? theme.COLORS.ROSE : theme.COLORS.GRAY_800};
+  color: ${({ theme, $variant }) => $variant === 'primary' ? theme.COLORS.GRAY_800 : theme.COLORS.ROSE};
 
   border: 0;
   border-radius: 8px;
@@ -18,4 +18,8 @@ export const Container = styled.button<ContainerProps>`
   align-items: center;
   justify-content: center;
  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 `
