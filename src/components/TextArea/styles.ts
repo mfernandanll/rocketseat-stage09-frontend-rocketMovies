@@ -22,6 +22,11 @@ export const Content = styled.textarea`
   &::placeholder {
     color: ${({ theme }) => theme.COLORS.GRAY_100} 
   }
+
+  &:focus {
+    border: ${({ theme }) => `2px solid ${theme.COLORS.WHITE}`};
+    background-color: none;
+  }
 `
 
 export const ErrorMessage = styled.p`

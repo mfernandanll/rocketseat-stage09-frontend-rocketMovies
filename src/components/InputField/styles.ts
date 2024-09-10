@@ -12,6 +12,7 @@ export const Content = styled.div`
   background-color: ${({ theme }) => theme.COLORS.GRAY_600};
   color: ${({ theme }) => theme.COLORS.GRAY_100};
 
+  border: solid 2px transparent;
   border-radius: 10px;
 
   > label {
@@ -43,12 +44,25 @@ export const Content = styled.div`
     &:placeholder {
       color: ${({ theme }) => theme.COLORS.GRAY_100} 
     }
+
+    &:-webkit-autofill{
+      background-color: transparent !important;
+      box-shadow: 0 0 0 30px ${({ theme }) => theme.COLORS.GRAY_600} inset !important;
+      -webkit-box-shadow: 0 0 0 30px ${({ theme }) => theme.COLORS.GRAY_600} inset !important;
+      -webkit-text-fill-color: ${({ theme }) => theme.COLORS.WHITE} !important;
+      color: ${({ theme }) => theme.COLORS.WHITE} !important;
+      transition: background-color 5000s ease-in-out 0s;
+    }
   }
 
   > svg {
     margin-left: 1rem;
   }
- 
+
+  &:focus-within {
+    border: ${({ theme }) =>  `2px solid ${theme.COLORS.WHITE}`};
+    background-color: none;
+  }
 `
 
 export const ErrorMessage = styled.p`

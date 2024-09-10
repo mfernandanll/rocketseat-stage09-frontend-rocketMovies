@@ -12,7 +12,7 @@ export const TextArea = forwardRef(
   ) {
     return(
       <Container>
-        <Content ref={ref} {...rest}/>
+        <Content ref={ref} {...rest} />
         {errorMessage ? (
           <ErrorMessage role="alert">{errorMessage}</ErrorMessage>
         ) : null}
