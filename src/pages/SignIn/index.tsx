@@ -18,6 +18,11 @@ const user = zod.object({
 
 export type UserInfo = zod.infer<typeof user>
 
+const PersonaInfo = {
+  email: 'user@email.com',
+  password: '123'
+}
+
 export function SignIn() {
   const {
     register,
@@ -38,11 +43,8 @@ export function SignIn() {
   }
 
   useEffect(() => {
-    setValue('email', 'cassio@gmail.com')
-    setValue('password', '123')
-
-    console.log(isValid);
-    
+    setValue('email', PersonaInfo.email)
+    setValue('password', PersonaInfo.password)    
   }, [])
 
   return (

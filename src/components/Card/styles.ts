@@ -9,6 +9,8 @@ export const Container = styled.div`
   border-radius: 1rem;
   margin-bottom: 2rem;
 
+  cursor: pointer;
+
   > h3 {
     color: ${({theme}) => theme.COLORS.WHITE};
 
