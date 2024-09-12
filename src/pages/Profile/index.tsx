@@ -5,7 +5,7 @@ import { Button } from "../../components/Button";
 import { FaArrowLeft } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useAuth } from "../../hooks/auth";
 
 import { api } from "../../services/api";
@@ -13,32 +13,59 @@ import { api } from "../../services/api";
 import avatarPlaceholder from "../../assets/avatar_placeholder.svg";
 import { ButtonText } from "../../components/ButtonText";
 
+import * as zod from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { toastOptions } from "../../config/toastConfig";
+
+const userProfile = zod.object({
+  name:  zod.string().min(1, 'Informe o nome'),
+  email: zod.string().min(1, 'Informe o email').email('E-mail inválido'),
+  oldPassword: zod.string().optional(),
+  newPassword: zod.string().optional(),
+})
+
+export type UserProfileInfo = zod.infer<typeof userProfile>
+
+
 export function Profile() {
   const { user, updatedProfile } = useAuth();
-
-  const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
-  const [passwordOld, setPasswordOld] = useState("");
-  const [passwordNew, setPasswordNew] = useState("");
 
   const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder;
 
   const [avatar, setAvatar] = useState<string>(avatarUrl);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
 
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { errors, isSubmitting }
+  } = useForm<UserProfileInfo>({
+    resolver: zodResolver(userProfile),
+  })
+
+
   const navigate = useNavigate();
 
-  async function handleUpdate() {
+  async function handleUpdate(data: UserProfileInfo) {
+    if ((data.newPassword && !data.oldPassword) || (!data.newPassword && data.oldPassword)) {
+      return toast.warn('Você precisa digitar as duas senhas para atualizar', toastOptions);
+    }
+
     const updated = {
-      name,
-      email,
-      password: passwordNew,
-      old_password: passwordOld
+      name: data.name,
+      email: data.email,
+      password: data.newPassword,
+      old_password: data.oldPassword
     };
 
     const userUpdated = Object.assign(user, updated);
 
     await updatedProfile( userUpdated, avatarFile);
+    reset();
   }
 
   function handleChangeAvatar(event: ChangeEvent<HTMLInputElement>) {
@@ -55,6 +82,11 @@ export function Profile() {
     navigate(-1);
   }
 
+  useEffect(() => {
+    if(user.name) setValue('name', user.name);
+    if(user.email) setValue('email', user.email);
+  })
+
   return (
     <Container>
       <Head>
@@ -63,7 +95,7 @@ export function Profile() {
         </ButtonText>
       </Head>
 
-      <Form>
+      <Form onSubmit={handleSubmit(handleUpdate)}>
         <Avatar id="avatarInput">
           <img src={avatar} alt={user.name} />
           
@@ -80,8 +112,11 @@ export function Profile() {
           placeholder="Nome" 
           type="text" 
           icon={FiUser} 
-          value={name}
-          onChange={e => setName(e.target.value)}
+          // value={name}
+          // onChange={e => setName(e.target.value)}
+
+          errorMessage={errors.name?.message}
+          {...register('name')}
         />
 
         <InputField 
@@ -90,8 +125,11 @@ export function Profile() {
           placeholder="E-mail" 
           type="text" 
           icon={FiMail} 
-          value={email}
-          onChange={e => setEmail(e.target.value)}
+          // value={email}
+          // onChange={e => setEmail(e.target.value)}
+
+          errorMessage={errors.email?.message}
+          {...register('email')}
         />
 
         <InputField 
@@ -100,7 +138,10 @@ export function Profile() {
           placeholder="Senha atual" 
           type="password" 
           icon={FiLock} 
-          onChange={e => setPasswordOld(e.target.value)}
+          // onChange={e => setPasswordOld(e.target.value)}
+
+          // errorMessage={errors.oldPassword?.message}
+          {...register('oldPassword')}
         />
 
         <InputField 
@@ -109,10 +150,13 @@ export function Profile() {
           placeholder="Nova senha" 
           type="password" 
           icon={FiLock} 
-          onChange={e => setPasswordNew(e.target.value)}
+          // onChange={e => setPasswordNew(e.target.value)}
+
+          // errorMessage={errors.newPassword?.message}
+          {...register('newPassword')}
         />
 
-        <Button title="Salvar" onClick={handleUpdate}/>
+        <Button type="submit" title="Salvar" isLoading={isSubmitting}/>
       </Form>
     </Container>
   );
