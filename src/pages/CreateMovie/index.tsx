@@ -14,6 +14,9 @@ import * as zod from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useFieldArray, useForm } from "react-hook-form";
 
+import { toast } from 'react-toastify';
+import { toastOptions } from "../../config/toastConfig";
+
 const newNote = zod.object({
   title: zod.string().min(1, 'Informe o título do filme'),
   description: zod.string().min(1, 'Informe a descrição do filme'),
@@ -72,10 +75,8 @@ export function CreateMovie() {
   async function handleNewMovieNote(data: NoteInfo) {
     const { title, description, rating, tags } = data;
 
-    if (watch('newTag')) {
-      return alert(
-        "Você deixou uma tag no campo para adicionar, mas não clicou em adicionar. Clique para adicionar ou deixe o campo vazio."
-      );
+    if (watch('newTag')) {      
+      return toast.warn('Você deixou uma tag no campo para adicionar, mas não clicou em adicionar. Clique para adicionar ou deixe o campo vazio.', toastOptions);
     }
 
     const formattedTags = tags.map((tag) => tag.value)
@@ -86,15 +87,15 @@ export function CreateMovie() {
       tags: formattedTags,
       rating,
     }).then(() => {
-      alert("Nota criada com sucesso!");
+      toast.success('Nota criada com sucesso!', toastOptions);
       reset();
       navigate("/");
     })
       .catch((error) => {
         if (error.response) {
-          alert(error.response.data.message);
+          toast.error(error.response.data.message, toastOptions);
         } else {
-          alert("Não foi possível cadastrar a nota.");
+          toast.error('Não foi possível cadastrar a nota', toastOptions);
         }
       });
   }

@@ -8,6 +8,8 @@ import {
 
 import { api } from "../services/api";
 import { NavigateFunction } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { toastOptions } from '../config/toastConfig';
 
 interface AuthContextType {
   signIn: (name: string, password: string) => Promise<void>
@@ -53,9 +55,9 @@ function AuthProvider({ children }: AuthProviderProps) {
 
     } catch (error: unknown) {
       if (error instanceof Error && 'response' in error && error.response) {
-        alert((error.response as any).data.message);
+        toast.error((error.response as any).data.message, toastOptions);
       } else {
-        alert("Não foi possível entrar.");
+        toast.error('Não foi possível entrar.', toastOptions);
       }
     }
   }
@@ -63,13 +65,13 @@ function AuthProvider({ children }: AuthProviderProps) {
   async function signUp(name: string, email: string, password: string, callback: NavigateFunction) {
     try {
       api.post("/users", { name, email, password })
-      alert("Cadastro realizado com sucesso!");
+      toast.success('Cadastro realizado com sucesso!', toastOptions);
       callback("/");
     } catch (error: unknown) {
       if (error instanceof Error && 'response' in error && error.response) {
-        alert((error.response as any).data.message);
+        toast.error((error.response as any).data.message, toastOptions);
       } else {
-        alert("Não foi possível cadastrar.");
+        toast.error('Não foi possível cadastrar.', toastOptions);
       }
     }
   }
@@ -91,12 +93,13 @@ function AuthProvider({ children }: AuthProviderProps) {
         user,
       });
 
-      alert("Perfil atualizado!");
+      toast.success('Perfil atualizado com sucesso!', toastOptions);
+
     } catch (error: unknown) {
       if (error instanceof Error && 'response' in error && error.response) {
-        alert((error.response as any).data.message);
+        toast.error((error.response as any).data.message, toastOptions);
       } else {
-        alert("Não foi possível atualizar o perfil.");
+        toast.error('Não foi possível atualizar o perfil.', toastOptions);
       }
     }
   }

@@ -20,7 +20,7 @@ export type SearchInfo = zod.infer<typeof search>
 
 interface HeaderProps {
   children?: ReactNode;
-  handleSearch: (data: SearchInfo) => void;
+  handleSearch?: (data: SearchInfo) => void;
 }
 
 export function Header({ handleSearch }: HeaderProps) {
@@ -40,7 +40,7 @@ export function Header({ handleSearch }: HeaderProps) {
   const query = watch('query');
 
   useEffect(() => {
-    if (query === '') {
+    if (query === ''  && handleSearch) {
       handleSubmit(handleSearch)(); 
     }
   }, [query, handleSubmit, handleSearch]);
@@ -51,7 +51,11 @@ export function Header({ handleSearch }: HeaderProps) {
         <h1>RocketMovies</h1>
       </Brand>
 
-      <SearchBar onSubmit={handleSubmit(handleSearch)}>
+      <SearchBar onSubmit={handleSubmit((data) => {
+        if (handleSearch) {
+          handleSearch(data);
+        }
+      })}>
         <InputField 
           placeholder="Pesquisar pelo título" 
           type="text"

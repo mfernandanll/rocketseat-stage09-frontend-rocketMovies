@@ -17,6 +17,8 @@ import avatarPlaceholder from "../../assets/avatar_placeholder.svg";
 import { ButtonText } from "../../components/ButtonText";
 import { Rating } from "../../components/Rating";
 import { Note } from "../Home";
+import { toast } from "react-toastify";
+import { toastOptions } from "../../config/toastConfig";
 
 export function MoviePreview() {
   const [data, setData] = useState<Note>({} as Note);
@@ -37,8 +39,13 @@ export function MoviePreview() {
     const confirm = window.confirm("Deseja realmente remover a nota?");
 
     if (confirm) {
-      await api.delete(`/movieNotes/${params.id}`);
-      navigate(-1);
+      try {
+        await api.delete(`/movieNotes/${params.id}`);
+        toast.success('Nota excluída com sucesso', toastOptions);
+        navigate(-1); 
+      } catch (error) {
+        toast.error('Ocorreu um erro ao excluir a nota', toastOptions);
+      }
     }
   }
 
